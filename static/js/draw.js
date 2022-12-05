@@ -1,29 +1,55 @@
 let canvas
 let ctx
 let lastRect
+let lastPoint
 
 window.addEventListener("load", e => {
     canvas = document.querySelector("#canvas")
     ctx = canvas.getContext("2d")
-    canvas.addEventListener("click", drawRect)
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    canvas.addEventListener("mousedown", beginDraw)
 })
 
-function drawRect(e){
+function beginDraw(e){
+    let rect = e.target.getBoundingClientRect();
+    lastPoint = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    }
+    canvas.addEventListener("mousemove", drawOnCanvas)
+    canvas.addEventListener("mouseup", () => {
+        canvas.removeEventListener("mousemove", drawOnCanvas)
+    })
+}
+
+function drawOnCanvas(e){
+    let rect = e.target.getBoundingClientRect();
     drawFromData({
-        x: e.clientX,
-        y: e.clientY
+        startX: lastPoint.x,
+        startY: lastPoint.y,
+        endX: e.clientX - rect.left,
+        endY: e.clientY - rect.top
     })
 
     broadcast(JSON.stringify({
-        x: e.clientX,
-        y: e.clientY
+        startX: lastPoint.x,
+        startY: lastPoint.y,
+        endX: e.clientX - rect.left,
+        endY: e.clientY - rect.top
     }));
+
+    lastPoint = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    }
 }
 
 function drawFromData(data){
     ctx.beginPath();
-    ctx.rect(data.x, data.y, 100, 100);
-    ctx.stroke();
+    ctx.moveTo(data.startX, data.startY);
+    ctx.lineTo(data.endX, data.endY);
+    ctx.stroke(); 
 }
 
 function onPeerData(id, data) {

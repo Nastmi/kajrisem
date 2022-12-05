@@ -35,7 +35,6 @@ router.get('/connect', auth, (req, res) => {
     let clients = app.get("clients")
     clients[client.id] = client;
     app.set("clients", clients)
-
     client.emit('connected', { user: req.user });
 
     req.on('close', () => {
@@ -112,15 +111,14 @@ router.post('/relay/:peerId/:event', auth, (req, res) => {
 });
 
 function disconnected(client, clients, app) {
-    console.log(clients)
     let rooms = app.get("rooms")
     delete clients[client.id];
     for (let roomId in rooms) {
-        console.log(clients)
         let room = rooms[roomId];
         if (room[client.id]) {
             for (let peerId in room) {
-                clients[peerId].emit('remove-peer', { peer: client.user, roomId });
+                if(client.id != peerId)
+                    clients[peerId].emit('remove-peer', { peer: client, roomId });
             }
             delete room[client.id];
         }
