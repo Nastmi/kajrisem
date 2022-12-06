@@ -3,9 +3,10 @@ let context = {
     roomId: window.location.pathname.substring(1),
     token: null,
     eventSource: null,
+    //peers = rtc connections to other users, users = information about other users (like the username)
     peers: {},
-    rooms:{}
-    
+    rooms:{},
+    users: {}
 };
 
 const rtcConfig = {
@@ -48,7 +49,10 @@ async function connect() {
     context.eventSource.addEventListener('remove-peer', removePeer, false);
     context.eventSource.addEventListener('session-description', sessionDescription, false);
     context.eventSource.addEventListener('ice-candidate', iceCandidate, false);
-    context.eventSource.addEventListener('connected', () => {
+    context.eventSource.addEventListener('connected', (data) => {
+        let self = JSON.parse(data.data).user
+        context.users[self.id] = self
+        updateUserList()
         join();
     });
 }
@@ -83,6 +87,8 @@ function addPeer(data) {
             };
         };
     }
+    context.users[message.peer.id] = message.peer
+    updateUserList()
 }
 
 function broadcast(data) {
@@ -132,8 +138,9 @@ function removePeer(data) {
     if (context.peers[message.peer.id]) {
         context.peers[message.peer.id].close();
     }
-
+    delete context.users[message.peer.id];
     delete context.peers[message.peer.id];
+    updateUserList()
 }
 
 window.addEventListener("load", e => {

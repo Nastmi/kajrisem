@@ -25,6 +25,7 @@ router.get('/connect', auth, (req, res) => {
     let client = {
         username: req.user.username,
         id: req.user.id,
+        score: 0,
         emit: (event, data) => {
             res.write(`id: ${uuid.v4()}\n`);
             res.write(`event: ${event}\n`);
@@ -35,7 +36,7 @@ router.get('/connect', auth, (req, res) => {
     let clients = app.get("clients")
     clients[client.id] = client;
     app.set("clients", clients)
-    client.emit('connected', { user: req.user });
+    client.emit('connected', { user: client });
 
     req.on('close', () => {
         disconnected(client, clients, app);
