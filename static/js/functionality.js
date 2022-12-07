@@ -6,3 +6,12 @@ function updateUserList(){
         list.innerHTML += value["username"] + " "
     }
 }
+
+function onPeerData(id, data) {
+    console.log(data)
+    let parsed = JSON.parse(data)
+    if(parsed.type == "draw")
+        drawFromData(parsed)
+    else if(parsed.type == "chat")
+        reciveMessage(parsed["user"], parsed["message"])
+}   

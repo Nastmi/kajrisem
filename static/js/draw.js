@@ -33,6 +33,7 @@ function drawOnCanvas(e){
     })
 
     broadcast(JSON.stringify({
+        type: "draw",
         startX: lastPoint.x,
         startY: lastPoint.y,
         endX: e.clientX - rect.left,
@@ -52,8 +53,6 @@ function drawFromData(data){
     ctx.stroke(); 
 }
 
-function onPeerData(id, data) {
-    drawFromData(JSON.parse(data));
-}
+
 
 
