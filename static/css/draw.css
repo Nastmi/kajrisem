@@ -55,9 +55,9 @@ article {
 #chatWindow{
     position: relative;
     max-height: 500px;
-    overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
+    overflow-y: auto;
 }
 
 nav a {
@@ -75,6 +75,7 @@ nav a {
 #bottom {
     position: absolute;
     bottom: 0;
+    padding-bottom: 5px;
 }
 
 nav a:hover {

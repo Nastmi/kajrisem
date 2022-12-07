@@ -2,13 +2,22 @@ let canvas
 let ctx
 let lastRect
 let lastPoint
+let steps = []
+let prevWidth
+let prevHeight
 
 window.addEventListener("load", e => {
     canvas = document.querySelector("#canvas")
     ctx = canvas.getContext("2d")
+    canvas.style.height = canvas.offsetWidth*0.5625 + "px"
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
+    prevHeight = canvas.offsetHeight
+    prevWidth = canvas.offsetWidth
     canvas.addEventListener("mousedown", beginDraw)
+    window.addEventListener("resize", resizeCanvas)
 })
 
 function beginDraw(e){
@@ -25,25 +34,22 @@ function beginDraw(e){
 
 function drawOnCanvas(e){
     let rect = e.target.getBoundingClientRect();
-    drawFromData({
-        startX: lastPoint.x,
-        startY: lastPoint.y,
-        endX: e.clientX - rect.left,
-        endY: e.clientY - rect.top
-    })
-
-    broadcast(JSON.stringify({
+    let data = {
         type: "draw",
         startX: lastPoint.x,
         startY: lastPoint.y,
         endX: e.clientX - rect.left,
         endY: e.clientY - rect.top
-    }));
+    }
+    drawFromData(data)
+
+    broadcast(JSON.stringify(data));
 
     lastPoint = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
     }
+    steps.push(data)
 }
 
 function drawFromData(data){
@@ -53,6 +59,24 @@ function drawFromData(data){
     ctx.stroke(); 
 }
 
+function resizeCanvas(e){
+    canvas.style.height = canvas.offsetWidth*0.5625 + "px"
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+    let scaleW = canvas.offsetWidth/prevWidth
+    let scaleH = canvas.offsetHeight/prevHeight
+    console.log(scaleH)
+    prevHeight = canvas.offsetHeight
+    prevWidth = canvas.offsetWidth
+    ctx.lineWidth = 5;
+    steps.forEach(step => {
+        step.startX *= scaleW
+        step.startY *= scaleH
+        step.endX *= scaleW
+        step.endY *= scaleH
+        drawFromData(step)
+    })
+}
 
 
 

@@ -21,8 +21,10 @@ function updateUserList(){
 function onPeerData(id, data) {
     console.log(data)
     let parsed = JSON.parse(data)
-    if(parsed.type == "draw")
+    if(parsed.type == "draw"){
+        steps.push(parsed)
         drawFromData(parsed)
+    }
     else if(parsed.type == "chat")
         reciveMessage(parsed["user"], parsed["message"])
 }   
