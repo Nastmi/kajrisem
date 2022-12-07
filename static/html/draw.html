@@ -4,23 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/draw.css">
-    <title>Test</title>
+    <link href="../css/draw.css" rel="stylesheet">
+    <title>Kaj risem</title>
 </head>
 <body>
-    <div>
-        <canvas width="800" height="600" id="canvas">
-    </div>
+
+<header>
+    <h1>Kaj rišem?</h1>
+</header>
+
+<nav>
+    <h2>Uporabniki:</h2>
     <div id="tempUserList">
 
     </div>
-    <div class="chatContainer">
-        <div id="chatWindow">
-            <!--dodajamo chat-->
-        </div>
+</nav>
+
+<article>
+    <h1>Draw</h1>
+    <canvas id="canvas"></canvas>
+</article>
+
+<aside>
+    <div id="chatWindow">
+        <p id="chat"></p>
+        <!--dodajamo chat-->
+    </div>
+    <div id="bottom">
         <input id="messageInput" type="text" placeholder="Damjan je pokemon!!!" />
         <button id="sendMessage">pošlji</button>
     </div>
+</aside>
+
+<footer>
+    <p>Copyright © 2022 - Ziga, Luka, Natan, Mark, Jure.</p>
+</footer>
+
     <script type="text/javascript" src="js/functionality.js"></script>
     <script type="text/javascript" src="js/load.js"></script>
     <script type="text/javascript"  src="js/draw.js"></script>

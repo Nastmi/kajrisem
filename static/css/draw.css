@@ -1,9 +1,115 @@
 *{
-    margin: 0;
-    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lucida Sans", sans-serif;
 }
 
 #canvas{
-    margin: 50px;
     border:2px solid #ff0000;
+    width: 100%;
+    height: auto;
+}
+
+header {
+    background-color: #9933cc;
+    color: #ffffff;
+    padding: 15px;
+    grid-area: header;
+}
+
+footer {
+    background-color: #0099cc;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    padding: 15px;
+    grid-area: footer;
+}
+
+aside {
+    position: relative;
+    background-color: #33b5e5;
+    padding: 15px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+    grid-area: aside;
+    align-self: start;
+    height: 100%;
+}
+
+nav {
+    padding: 10px;
+    grid-area: nav;
+}
+
+article {
+    grid-area: article;
+}
+
+
+#chatWindow{
+    position: relative;
+    max-height: 500px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+nav a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 7px;
+    background-color: #33b5e5;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: transform 0.5s;
+}
+#bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+nav a:hover {
+    background-color: #0099cc;
+}
+
+@media screen and (min-width: 992px){
+    body {
+        display: grid;
+        grid-template-columns: 25% 50% 25%;
+        grid-template-areas:
+            'header header header'
+            'nav article aside'
+            'footer footer footer';
+    }
+}
+
+@media screen and (max-width: 600px){
+    body {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas:
+            'header'
+            'nav'
+            'article'
+            'aside'
+            'footer';
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 992px){
+    body {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        grid-template-areas:
+            'header header'
+            'nav article'
+            'aside aside'
+            'footer footer';
+    }
 }
