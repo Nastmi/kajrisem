@@ -54,7 +54,7 @@ article {
 
 #chatWindow{
     position: relative;
-    max-height: 500px;
+    max-height: 480px;
     display: flex;
     flex-direction: column-reverse;
     overflow-y: auto;
