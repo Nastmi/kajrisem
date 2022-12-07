@@ -22,10 +22,10 @@ function sendMessage() {
 }
 
 function reciveMessage(user, message) {
-    const chatWindow = document.querySelector("#chatWindow")
-    let par = document.createElement("div")
-    var text = document.createTextNode(user + ": " + message);
-    par.appendChild(text)
-    chatWindow.appendChild(par)
+    const chat = document.querySelector("#chat");
+    let br = document.createElement("br");
+    let text = document.createTextNode(user + ": " + message);
+    chat.appendChild(text);
+    chat.appendChild(br);
 }
 

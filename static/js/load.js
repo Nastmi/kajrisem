@@ -9,14 +9,6 @@ let context = {
     users: {}
 };
 
-const rtcConfig = {
-    iceServers: [{
-        urls: [
-            'stun:stun.l.google.com:19302',
-            'stun:global.stun.twilio.com:3478'
-        ]
-    }]
-};
 
 async function getToken() {
     let res = await fetch('/connection/access', {
@@ -150,3 +142,18 @@ window.addEventListener("load", e => {
 window.addEventListener('beforeunload', () => {
 	context.eventSource.close()
 });
+
+const rtcConfig = {
+    iceServers: [
+        {
+          urls: "turn:openrelay.metered.ca:80",
+          username: "openrelayproject",
+          credential: "openrelayproject",
+        },
+        {
+          urls: "turn:openrelay.metered.ca:443",
+          username: "openrelayproject",
+          credential: "openrelayproject",
+        },
+      ],
+};
