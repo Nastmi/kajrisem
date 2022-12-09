@@ -1,10 +1,21 @@
 let canvas
 let ctx
-let lastRect
 let lastPoint
 let steps = []
 let prevWidth
 let prevHeight
+
+let isDrawing = false,
+    selectedTool = "brush",
+    brushWidth = sizeSlider.value,
+    selectedColor = "#b095db";
+
+clearCanvas = document.querySelector(".clear-canvas");
+toolBtns = document.querySelectorAll(".tool");
+fillColor = document.querySelector("#fill-color");
+sizeSlider = document.querySelector("#size-slider");
+colorBtns = document.querySelectorAll(".colors .option");
+colorPicker = document.querySelector("#color-picker");
 
 window.addEventListener("load", e => {
     canvas = document.querySelector("#canvas")
@@ -20,43 +31,62 @@ window.addEventListener("load", e => {
     window.addEventListener("resize", resizeCanvas)
 })
 
-function beginDraw(e){
+function drawOnCanvas(e){
+    let data;
     let rect = e.target.getBoundingClientRect();
     lastPoint = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
     }
-    canvas.addEventListener("mousemove", drawOnCanvas)
-    canvas.addEventListener("mouseup", () => {
-        canvas.removeEventListener("mousemove", drawOnCanvas)
-    })
-}
+    clearCanvas.addEventListener("click", () => {
+        data = {
+            type: "clearCanvas",
+            selectColor: selectedColor
+        }
+        clearCanvass(data);
+        broadcast(JSON.stringify(data));
+        steps.push(data);
+    });
 
-function drawOnCanvas(e){
-    let rect = e.target.getBoundingClientRect();
-    let data = {
+    data = {
         type: "draw",
+        isDraw: isDrawing,
+        selectTool: selectedTool,
+        selectColor: selectedColor,
+        brushWidthh: brushWidth,
         startX: lastPoint.x,
         startY: lastPoint.y,
         endX: e.clientX - rect.left,
-        endY: e.clientY - rect.top
+        endY: e.clientY - rect.top,
+        offsettX: e.offsetX,
+        offsettY: e.offsetY
     }
-    drawFromData(data)
-
-    broadcast(JSON.stringify(data));
-
+    drawFromData(data) //narise kjer risem
     lastPoint = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
     }
-    steps.push(data)
+    broadcast(JSON.stringify(data));
+    steps.push(data);
 }
 
-function drawFromData(data){
+function drawFromData(data) {
     ctx.beginPath();
-    ctx.moveTo(data.startX, data.startY);
-    ctx.lineTo(data.endX, data.endY);
-    ctx.stroke(); 
+    ctx.lineWidth = data.brushWidthh;
+    ctx.fillStyle = data.selectColor;
+    if(data.selectTool === "brush" || data.selectTool === "eraser") {
+        ctx.strokeStyle = data.selectTool === "eraser" ? "#fff" : data.selectColor;
+        ctx.moveTo(data.startX, data.startY);
+        ctx.lineTo(data.endX, data.endY);
+        ctx.stroke();
+    }
+}
+
+function clearCanvass(data){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = data.selectColor;
 }
 
 function resizeCanvas(e){
@@ -78,5 +108,33 @@ function resizeCanvas(e){
     })
 }
 
+//listeners
+function beginDraw(e){
+    canvas.addEventListener("mousemove", drawOnCanvas)
+    canvas.addEventListener("mouseup", () => {
+        canvas.removeEventListener("mousemove", drawOnCanvas)
+    })
+}
 
+toolBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector(".options .active").classList.remove("active");
+        btn.classList.add("active");
+        selectedTool = btn.id;
+    });
+});
 
+sizeSlider.addEventListener("change", () => brushWidth = sizeSlider.value);
+
+colorBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector(".options .selected").classList.remove("selected");
+        btn.classList.add("selected");
+        selectedColor = window.getComputedStyle(btn).getPropertyValue("background-color");
+    });
+});
+
+colorPicker.addEventListener("change", () => {
+    colorPicker.parentElement.style.background = colorPicker.value;
+    colorPicker.parentElement.click();
+});

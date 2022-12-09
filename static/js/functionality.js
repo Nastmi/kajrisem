@@ -25,6 +25,10 @@ function onPeerData(id, data) {
         steps.push(parsed)
         drawFromData(parsed)
     }
+    else if (parsed.type == "clearCanvas")
+    {
+        clearCanvass(parsed);
+    }
     else if(parsed.type == "chat")
         reciveMessage(parsed["user"], parsed["message"])
 }   
