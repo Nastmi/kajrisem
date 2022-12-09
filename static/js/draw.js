@@ -27,6 +27,10 @@ window.addEventListener("load", e => {
     ctx.lineCap = 'round';
     prevHeight = canvas.offsetHeight
     prevWidth = canvas.offsetWidth
+    lastPoint = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    }
     canvas.addEventListener("mousedown", beginDraw)
     window.addEventListener("resize", resizeCanvas)
 })
@@ -38,15 +42,6 @@ function drawOnCanvas(e){
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
     }
-    clearCanvas.addEventListener("click", () => {
-        data = {
-            type: "clearCanvas",
-            selectColor: selectedColor
-        }
-        clearCanvass(data);
-        broadcast(JSON.stringify(data));
-        steps.push(data);
-    });
 
     data = {
         type: "draw",
@@ -61,6 +56,16 @@ function drawOnCanvas(e){
         offsettX: e.offsetX,
         offsettY: e.offsetY
     }
+
+    clearCanvas.addEventListener("click", () => {
+        data = {
+            type: "clearCanvas",
+            selectColor: selectedColor
+        }
+        clearCanvass(data);
+        broadcast(JSON.stringify(data));
+        steps.push(data);
+    });
     drawFromData(data) //narise kjer risem
     lastPoint = {
         x: e.clientX - rect.left,
