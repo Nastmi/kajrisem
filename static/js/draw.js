@@ -45,8 +45,6 @@ function drawOnCanvas(e){
         startY: lastPoint.y,
         endX: e.clientX - rect.left,
         endY: e.clientY - rect.top,
-        offsettX: e.offsetX,
-        offsettY: e.offsetY
     }
 
 
