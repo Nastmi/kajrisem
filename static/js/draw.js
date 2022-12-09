@@ -4,18 +4,18 @@ let lastPoint
 let steps = []
 let prevWidth
 let prevHeight
+let clearCanvas = document.querySelector(".clear-canvas");
+let toolBtns = document.querySelectorAll(".tool");
+let fillColor = document.querySelector("#fill-color");
+let sizeSlider = document.querySelector("#size-slider");
+let colorBtns = document.querySelectorAll(".colors .option");
+let colorPicker = document.querySelector("#color-picker");
+
 
 let isDrawing = false,
     selectedTool = "brush",
     brushWidth = sizeSlider.value,
     selectedColor = "#b095db";
-
-clearCanvas = document.querySelector(".clear-canvas");
-toolBtns = document.querySelectorAll(".tool");
-fillColor = document.querySelector("#fill-color");
-sizeSlider = document.querySelector("#size-slider");
-colorBtns = document.querySelectorAll(".colors .option");
-colorPicker = document.querySelector("#color-picker");
 
 window.addEventListener("load", e => {
     canvas = document.querySelector("#canvas")
@@ -27,10 +27,6 @@ window.addEventListener("load", e => {
     ctx.lineCap = 'round';
     prevHeight = canvas.offsetHeight
     prevWidth = canvas.offsetWidth
-    lastPoint = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-    }
     canvas.addEventListener("mousedown", beginDraw)
     window.addEventListener("resize", resizeCanvas)
 })
@@ -38,10 +34,6 @@ window.addEventListener("load", e => {
 function drawOnCanvas(e){
     let data;
     let rect = e.target.getBoundingClientRect();
-    lastPoint = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-    }
 
     data = {
         type: "draw",
@@ -57,6 +49,11 @@ function drawOnCanvas(e){
         offsettY: e.offsetY
     }
 
+
+    lastPoint = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    }
     clearCanvas.addEventListener("click", () => {
         data = {
             type: "clearCanvas",
@@ -103,7 +100,8 @@ function resizeCanvas(e){
     console.log(scaleH)
     prevHeight = canvas.offsetHeight
     prevWidth = canvas.offsetWidth
-    ctx.lineWidth = 5;
+    ctx.lineWidth = brushWidth;
+    ctx.lineCap = "round"
     steps.forEach(step => {
         step.startX *= scaleW
         step.startY *= scaleH
@@ -115,6 +113,11 @@ function resizeCanvas(e){
 
 //listeners
 function beginDraw(e){
+    let rect = e.target.getBoundingClientRect();
+    lastPoint = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    }
     canvas.addEventListener("mousemove", drawOnCanvas)
     canvas.addEventListener("mouseup", () => {
         canvas.removeEventListener("mousemove", drawOnCanvas)

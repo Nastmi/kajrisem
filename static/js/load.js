@@ -55,7 +55,7 @@ function addPeer(data) {
         return;
     }
 
-    let peer = new RTCPeerConnection(rtcConfig);
+    let peer = new RTCPeerConnection();
     context.peers[message.peer.id] = peer;
 
     peer.onicecandidate = function (event) {
@@ -143,7 +143,7 @@ window.addEventListener('beforeunload', () => {
 	context.eventSource.close()
 });
 
-const rtcConfig = {
+/*const rtcConfig = {
     iceServers: [
         {
           urls: "turn:openrelay.metered.ca:80",
@@ -156,4 +156,4 @@ const rtcConfig = {
           credential: "openrelayproject",
         },
       ],
-};
+};*/
