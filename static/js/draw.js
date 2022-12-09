@@ -1,10 +1,21 @@
 let canvas
 let ctx
-let lastRect
 let lastPoint
 let steps = []
 let prevWidth
 let prevHeight
+let clearCanvas = document.querySelector(".clear-canvas");
+let toolBtns = document.querySelectorAll(".tool");
+let fillColor = document.querySelector("#fill-color");
+let sizeSlider = document.querySelector("#size-slider");
+let colorBtns = document.querySelectorAll(".colors .option");
+let colorPicker = document.querySelector("#color-picker");
+
+
+let isDrawing = false,
+    selectedTool = "brush",
+    brushWidth = sizeSlider.value,
+    selectedColor = "#b095db";
 
 window.addEventListener("load", e => {
     canvas = document.querySelector("#canvas")
@@ -20,6 +31,87 @@ window.addEventListener("load", e => {
     window.addEventListener("resize", resizeCanvas)
 })
 
+function drawOnCanvas(e){
+    let data;
+    let rect = e.target.getBoundingClientRect();
+
+    data = {
+        type: "draw",
+        isDraw: isDrawing,
+        selectTool: selectedTool,
+        selectColor: selectedColor,
+        brushWidthh: brushWidth,
+        startX: lastPoint.x,
+        startY: lastPoint.y,
+        endX: e.clientX - rect.left,
+        endY: e.clientY - rect.top,
+        offsettX: e.offsetX,
+        offsettY: e.offsetY
+    }
+
+
+    lastPoint = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    }
+    clearCanvas.addEventListener("click", () => {
+        data = {
+            type: "clearCanvas",
+            selectColor: selectedColor
+        }
+        clearCanvass(data);
+        broadcast(JSON.stringify(data));
+        steps.push(data);
+    });
+    drawFromData(data) //narise kjer risem
+    lastPoint = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    }
+    broadcast(JSON.stringify(data));
+    steps.push(data);
+}
+
+function drawFromData(data) {
+    ctx.beginPath();
+    ctx.lineWidth = data.brushWidthh;
+    ctx.fillStyle = data.selectColor;
+    if(data.selectTool === "brush" || data.selectTool === "eraser") {
+        ctx.strokeStyle = data.selectTool === "eraser" ? "#fff" : data.selectColor;
+        ctx.moveTo(data.startX, data.startY);
+        ctx.lineTo(data.endX, data.endY);
+        ctx.stroke();
+    }
+}
+
+function clearCanvass(data){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = data.selectColor;
+}
+
+function resizeCanvas(e){
+    canvas.style.height = canvas.offsetWidth*0.5625 + "px"
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+    let scaleW = canvas.offsetWidth/prevWidth
+    let scaleH = canvas.offsetHeight/prevHeight
+    console.log(scaleH)
+    prevHeight = canvas.offsetHeight
+    prevWidth = canvas.offsetWidth
+    ctx.lineWidth = brushWidth;
+    ctx.lineCap = "round"
+    steps.forEach(step => {
+        step.startX *= scaleW
+        step.startY *= scaleH
+        step.endX *= scaleW
+        step.endY *= scaleH
+        drawFromData(step)
+    })
+}
+
+//listeners
 function beginDraw(e){
     let rect = e.target.getBoundingClientRect();
     lastPoint = {
@@ -32,51 +124,25 @@ function beginDraw(e){
     })
 }
 
-function drawOnCanvas(e){
-    let rect = e.target.getBoundingClientRect();
-    let data = {
-        type: "draw",
-        startX: lastPoint.x,
-        startY: lastPoint.y,
-        endX: e.clientX - rect.left,
-        endY: e.clientY - rect.top
-    }
-    drawFromData(data)
+toolBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector(".options .active").classList.remove("active");
+        btn.classList.add("active");
+        selectedTool = btn.id;
+    });
+});
 
-    broadcast(JSON.stringify(data));
+sizeSlider.addEventListener("change", () => brushWidth = sizeSlider.value);
 
-    lastPoint = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-    }
-    steps.push(data)
-}
+colorBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector(".options .selected").classList.remove("selected");
+        btn.classList.add("selected");
+        selectedColor = window.getComputedStyle(btn).getPropertyValue("background-color");
+    });
+});
 
-function drawFromData(data){
-    ctx.beginPath();
-    ctx.moveTo(data.startX, data.startY);
-    ctx.lineTo(data.endX, data.endY);
-    ctx.stroke(); 
-}
-
-function resizeCanvas(e){
-    canvas.style.height = canvas.offsetWidth*0.5625 + "px"
-    canvas.width = canvas.offsetWidth
-    canvas.height = canvas.offsetHeight
-    let scaleW = canvas.offsetWidth/prevWidth
-    let scaleH = canvas.offsetHeight/prevHeight
-    console.log(scaleH)
-    prevHeight = canvas.offsetHeight
-    prevWidth = canvas.offsetWidth
-    ctx.lineWidth = 5;
-    steps.forEach(step => {
-        step.startX *= scaleW
-        step.startY *= scaleH
-        step.endX *= scaleW
-        step.endY *= scaleH
-        drawFromData(step)
-    })
-}
-
-
-
+colorPicker.addEventListener("change", () => {
+    colorPicker.parentElement.style.background = colorPicker.value;
+    colorPicker.parentElement.click();
+});
