@@ -1,0 +1,136 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lucida Sans", sans-serif;
+}
+
+body {
+    background: #10A19D;
+}
+
+.about {
+    grid-area: about;
+    align-items: center;
+}
+
+.main {
+    grid-area: main;
+}
+
+.instructions {
+    grid-area: instructions;
+}
+
+.about .wrapper, .main .wrapper, .instructions .wrapper {
+    background: #FFBF00;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.about, .instructions {
+    padding: 15px;
+}
+
+.about h2, .instructions h2, .main h1 {
+    text-align: center;
+}
+
+.main h1 {
+    padding-bottom: 60px;
+}
+
+.main .wrapper {
+    width: 100%;
+    padding: 100px 0;
+}
+
+.input-name, .play-btn, .room-btn {
+    width: 50%;
+    margin: auto;
+    display: block;
+}
+
+.input-name {
+    font-size: 20px;
+    border: none;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.play-btn {
+    font-size: 28px;
+    padding: 5px 0;
+    border-radius: 3px;
+    border: none;
+    background: #53e237;
+    font-weight: bold;
+}
+
+.room-btn {
+    margin-bottom: 40px;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    padding: 5px 0;
+    font-weight: bolder;
+    background: #2c8de7;
+}
+
+.play-btn:hover {
+    cursor: pointer;
+    background-color: rgba(83,226,55,0.8);
+}
+
+.room-btn:hover {
+    cursor: pointer;
+    background-color: rgba(44,141,231,0.8);
+}
+
+@media screen and (min-width: 992px){
+    body {
+        display: grid;
+        grid-template-columns: 25% 50% 25%;
+        grid-template-areas:
+            'about main instructions'
+    }
+
+    .about, .main, .instructions {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 600px){
+    body {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas:
+            'main'
+            'about'
+            'instructions';
+    }
+
+    .main {
+        margin: 15px;
+    }
+
+    .input-name {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 992px){
+    body {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-areas:
+            'main main'
+            'about instructions';
+    }
+
+    .main {
+        margin: 15px;
+    }
+}
