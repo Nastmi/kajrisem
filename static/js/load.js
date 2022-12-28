@@ -1,6 +1,6 @@
 let context = {
     username: 'user' + parseInt(Math.random() * 100000),
-    roomId: window.location.pathname.substring(1),
+    roomId: window.location.pathname.substring(6),
     token: null,
     eventSource: null,
     //peers = rtc connections to other users, users = information about other users (like the username)
