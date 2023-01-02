@@ -30,6 +30,7 @@ body {
 
 .about, .instructions {
     padding: 15px;
+    justify-content: center;
 }
 
 .about h2, .instructions h2, .main h1 {
