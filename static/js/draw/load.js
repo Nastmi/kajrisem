@@ -63,6 +63,7 @@ async function connect() {
         context.isDrawing = false;
         console.log(context.username + " stopped drawing")
     });
+    context.eventSource.addEventListener('new-round', nextRound);
 }
 
 function addPeer(data) {

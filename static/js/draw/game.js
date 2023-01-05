@@ -29,3 +29,8 @@ function handleWord(data){
     let word = data["word"]
     console.log(word)
 }
+
+function nextRound(){
+    clearCanvass()
+    steps = []
+}

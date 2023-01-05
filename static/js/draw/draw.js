@@ -86,7 +86,7 @@ function clearCanvass(data){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = data.selectColor;
+   // ctx.fillStyle = data.selectColor;
 }
 
 function resizeCanvas(e){
