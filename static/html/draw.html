@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,159 +11,154 @@
     <title>Kaj risem</title>
     <link rel="icon" type="image/x-icon" href="../img/pencil.ico">
 </head>
+
 <body>
 
-<header>
-    <h1>Kaj rišem?</h1>
-</header>
+    <header>
+        <h1>Kaj rišem?</h1>
+    </header>
 
-<nav>
-    <h2>Uporabniki:</h2>
-    <div id="tempUserList">
+    <nav>
+        <h2>Igralci:</h2>
+        <div id="tempUserList">
 
-    </div>
-</nav>
-
-<!-- initially set to display: none -->
-<article class="private-room-container">
-    <h1>Čakanje na igralce...</h1>
-    <table>
-        <div class="invite-link-container">
-            Povabi svoje prijatelje!<br>
-            <input type="text" class="invite-link" readonly>
         </div>
-        <tr>
-            <td>
-                <form oninput="result.value = slider_players.value">
-                    <label><b>Število igralcev</b></label><br/>
-                    <input type="range" id="slider_players" min="2" max="20" step="1" value="8"> <br/>
-                    ➜
-                    <output name="result" for="slider">8</output>
-                </form>
-            </td>
-            <td>
-                <form oninput="result.value = slider_time.value">
-                    <label><b>Čas risanja</b></label><br/>
-                    <input type="range" id="slider_time" min="20" max="240" step="10" value="80"> <br/>
-                    ➜
-                    <output name="result" for="slider">80</output>
-                    sekund
-                </form>
-            </td>
-            <td>
-                <form oninput="result.value = slider_rounds.value">
-                    <label><b>Število krogov</b></label><br/>
-                    <input type="range" id="slider_rounds" min="2" max="5" step="10" value="3"> <br/>
-                    ➜
-                    <output name="result" for="slider">3</output>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label><b>Način besed</b></label><br/>
-                <select name="word_mode">
+    </nav>
+
+    <!-- initially set to display: none -->
+    <article class="private-room-container">
+        <h1>Čakanje na igralce...</h1>
+        <table>
+            <div class="invite-link-container">
+                Povabi svoje prijatelje!<br>
+                <input type="text" class="invite-link" readonly>
+            </div>
+            <tr>
+                <td>
+                    <form oninput="result.value = slider_players.value">
+                        <label><b>Število igralcev</b></label><br/>
+                        <input type="range" id="slider_players" min="2" max="20" step="1" value="8"> <br/> ➜
+                        <output name="result" for="slider">8</output>
+                    </form>
+                </td>
+                <td>
+                    <form oninput="result.value = slider_time.value">
+                        <label><b>Čas risanja</b></label><br/>
+                        <input type="range" id="slider_time" min="20" max="240" step="10" value="80"> <br/> ➜
+                        <output name="result" for="slider">80</output> sekund
+                    </form>
+                </td>
+                <td>
+                    <form oninput="result.value = slider_rounds.value">
+                        <label><b>Število krogov</b></label><br/>
+                        <input type="range" id="slider_rounds" min="2" max="5" step="10" value="3"> <br/> ➜
+                        <output name="result" for="slider">3</output>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label><b>Način besed</b></label><br/>
+                    <select name="word_mode">
                     <option value="normal">Običajno</option>
                     <option value="hidden">Skrito</option>
                     <option value="combination">Mešano</option>
                 </select>
-            </td>
-            <td>
-                <form oninput="result.value = slider_words.value">
-                    <label><b>Število besed</b></label><br/>
-                    <input type="range" id="slider_words" min="1" max="5" step="1" value="3"> <br/>
-                    ➜
-                    <output name="result" for="slider">3</output>
-                </form>
-            </td>
-            <td>
-                <form oninput="result.value = slider_clues.value">
-                    <label><b>Število namigov</b></label><br/>
-                    <input type="range" id="slider_clues" min="0" max="5" step="1" value="2"> <br/>
-                    ➜
-                    <output name="result" for="slider">2</output>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <b>Moje besede</b><br>
-                <textarea rows="5"
-                          placeholder="Vnesi vsaj 10 besed, dolgih 1-32 znakov in ločenih z vejico (,)"></textarea><br>
-                <label class="custom-words-label"><input type="checkbox"/> Uporabi le vnesene besede</label>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <button type="button" class="play-btn">Prični z igro!</button>
-            </td>
-        </tr>
-    </table>
-</article>
+                </td>
+                <td>
+                    <form oninput="result.value = slider_words.value">
+                        <label><b>Število besed</b></label><br/>
+                        <input type="range" id="slider_words" min="1" max="5" step="1" value="3"> <br/> ➜
+                        <output name="result" for="slider">3</output>
+                    </form>
+                </td>
+                <td>
+                    <form oninput="result.value = slider_clues.value">
+                        <label><b>Število namigov</b></label><br/>
+                        <input type="range" id="slider_clues" min="0" max="5" step="1" value="2"> <br/> ➜
+                        <output name="result" for="slider">2</output>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <b>Moje besede</b><br>
+                    <textarea rows="5" placeholder="Vnesi vsaj 10 besed, dolgih 1-32 znakov in ločenih z vejico (,)"></textarea><br>
+                    <label class="custom-words-label"><input type="checkbox"/> Uporabi le vnesene besede</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button type="button" class="play-btn">Prični z igro!</button>
+                </td>
+            </tr>
+        </table>
+    </article>
 
-<article>
-    <h1>Draw</h1>
-    <canvas id="canvas"></canvas>
+    <article>
+        <h1 id="isDrawing">Čakaj da se igra začne...</h1>
+        <canvas id="canvas"></canvas>
 
-    <div class="container">
-        <div class="row">
-            <label class="title">Options</label>
-            <ul class="options">
-                <li class="option active tool" id="brush">
-                    <img src="../icons/brush.svg" alt="">
-                    <span>Brush</span>
-                </li>
-                <li class="option tool" id="eraser">
-                    <img src="../icons/eraser.svg" alt="">
-                    <span>Eraser</span>
-                </li>
-                <li class="option">
-                    <input type="range" id="size-slider" min="1" max="30" value="5">
-                </li>
-            </ul>
+        <div class="container">
+            <div class="row">
+                <label class="title">Options</label>
+                <ul class="options">
+                    <li class="option active tool" id="brush">
+                        <img src="../icons/brush.svg" alt="">
+                        <span>Brush</span>
+                    </li>
+                    <li class="option tool" id="eraser">
+                        <img src="../icons/eraser.svg" alt="">
+                        <span>Eraser</span>
+                    </li>
+                    <li class="option">
+                        <input type="range" id="size-slider" min="1" max="30" value="5">
+                    </li>
+                </ul>
+            </div>
+            <div class="row colors">
+                <label class="title">Colors</label>
+                <ul class="options">
+                    <li class="option selected"></li>
+                    <li class="option"></li>
+                    <li class="option"></li>
+                    <li class="option"></li>
+                    <li class="option">
+                        <input type="color" id="color-picker" value="#4A98F7">
+                    </li>
+                </ul>
+            </div>
+            <div class="row buttons">
+                <button class="clear-canvas">Clear Canvas</button>
+            </div>
+            <button id="start-game">Start game</button>
+            <button id="next-round">Next round (testing)</button>
         </div>
-        <div class="row colors">
-            <label class="title">Colors</label>
-            <ul class="options">
-                <li class="option selected"></li>
-                <li class="option"></li>
-                <li class="option"></li>
-                <li class="option"></li>
-                <li class="option">
-                    <input type="color" id="color-picker" value="#4A98F7">
-                </li>
-            </ul>
+
+    </article>
+
+    <aside>
+        <h2>Pogovorno okno:</h2>
+        <div id="chatWindow">
+            <p id="chat"></p>
+            <!--dodajamo chat-->
         </div>
-        <div class="row buttons">
-            <button class="clear-canvas">Clear Canvas</button>
+        <div id="bottom">
+            <input id="messageInput" type="text" placeholder="Damjan je pokemon!!!" />
+            <button id="sendMessage">pošlji</button>
         </div>
-        <button id="start-game">Start game</button>
-        <button id="next-round">Next round (testing)</button>
-    </div>
+    </aside>
 
-</article>
+    <footer>
+        <p>Copyright © 2022 - Ziga, Luka, Natan, Mark, Jure.</p>
+    </footer>
 
-<aside>
-    <h2>Pogovorno okno:</h2>
-    <div id="chatWindow">
-        <p id="chat"></p>
-        <!--dodajamo chat-->
-    </div>
-    <div id="bottom">
-        <input id="messageInput" type="text" placeholder="Damjan je pokemon!!!"/>
-        <button id="sendMessage">pošlji</button>
-    </div>
-</aside>
-
-<footer>
-    <p>Copyright © 2022 - Ziga, Luka, Natan, Mark, Jure.</p>
-</footer>
-
-<script type="text/javascript" src="/js/draw/drawingPicker.js" defer></script>
-<script type="text/javascript" src="/js/draw/functionality.js"></script>
-<script type="text/javascript" src="/js/draw/load.js"></script>
-<script type="text/javascript" src="/js/draw/draw.js"></script>
-<script type="text/javascript" src="/js/draw/chat.js"></script>
-<script type="text/javascript" src="/js/draw/game.js"></script>
+    <script type="text/javascript" src="/js/draw/drawingPicker.js" defer></script>
+    <script type="text/javascript" src="/js/draw/functionality.js"></script>
+    <script type="text/javascript" src="/js/draw/load.js"></script>
+    <script type="text/javascript" src="/js/draw/draw.js"></script>
+    <script type="text/javascript" src="/js/draw/chat.js"></script>
+    <script type="text/javascript" src="/js/draw/game.js"></script>
 </body>
+
 </html>

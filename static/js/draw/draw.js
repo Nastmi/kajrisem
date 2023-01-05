@@ -20,7 +20,7 @@ let isDrawing = false,
 window.addEventListener("load", e => {
     canvas = document.querySelector("#canvas")
     ctx = canvas.getContext("2d")
-    canvas.style.height = canvas.offsetWidth*0.5625 + "px"
+    canvas.style.height = canvas.offsetWidth * 0.5625 + "px"
     canvas.width = canvas.offsetWidth
     canvas.height = canvas.offsetHeight
     ctx.lineWidth = 5;
@@ -31,9 +31,13 @@ window.addEventListener("load", e => {
     window.addEventListener("resize", resizeCanvas)
 })
 
-function drawOnCanvas(e){
+function drawOnCanvas(e) {
     let data;
     let rect = e.target.getBoundingClientRect();
+
+    if (context.isDrawing === false) {
+        return
+    }
 
     data = {
         type: "draw",
@@ -74,7 +78,7 @@ function drawFromData(data) {
     ctx.beginPath();
     ctx.lineWidth = data.brushWidthh;
     ctx.fillStyle = data.selectColor;
-    if(data.selectTool === "brush" || data.selectTool === "eraser") {
+    if (data.selectTool === "brush" || data.selectTool === "eraser") {
         ctx.strokeStyle = data.selectTool === "eraser" ? "#fff" : data.selectColor;
         ctx.moveTo(data.startX, data.startY);
         ctx.lineTo(data.endX, data.endY);
@@ -82,19 +86,19 @@ function drawFromData(data) {
     }
 }
 
-function clearCanvass(data){
+function clearCanvass(data) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = data.selectColor;
 }
 
-function resizeCanvas(e){
-    canvas.style.height = canvas.offsetWidth*0.5625 + "px"
+function resizeCanvas(e) {
+    canvas.style.height = canvas.offsetWidth * 0.5625 + "px"
     canvas.width = canvas.offsetWidth
     canvas.height = canvas.offsetHeight
-    let scaleW = canvas.offsetWidth/prevWidth
-    let scaleH = canvas.offsetHeight/prevHeight
+    let scaleW = canvas.offsetWidth / prevWidth
+    let scaleH = canvas.offsetHeight / prevHeight
     console.log(scaleH)
     prevHeight = canvas.offsetHeight
     prevWidth = canvas.offsetWidth
@@ -110,7 +114,7 @@ function resizeCanvas(e){
 }
 
 //listeners
-function beginDraw(e){
+function beginDraw(e) {
     let rect = e.target.getBoundingClientRect();
     lastPoint = {
         x: e.clientX - rect.left,

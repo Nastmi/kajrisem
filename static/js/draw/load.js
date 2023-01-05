@@ -5,10 +5,10 @@ let context = {
     eventSource: null,
     //peers = rtc connections to other users, users = information about other users (like the username)
     peers: {},
-    rooms:{},
+    rooms: {},
     users: {},
-    isHost:false,
-    isDrawing:false
+    isHost: false,
+    isDrawing: false
 };
 
 
@@ -57,11 +57,13 @@ async function connect() {
         context.isDrawing = true;
         data = JSON.parse(data["data"])
         console.log(context.username + " is drawing")
-        handleWord(data)
+        let word = handleWord(data)
+        document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo <b>" + word; + "</b>."
     });
     context.eventSource.addEventListener('drawing-false', data => {
         context.isDrawing = false;
         console.log(context.username + " stopped drawing")
+        document.getElementById("isDrawing").innerHTML = "Ugani besedo!"
     });
 }
 
@@ -74,7 +76,7 @@ function addPeer(data) {
     let peer = new RTCPeerConnection();
     context.peers[message.peer.id] = peer;
 
-    peer.onicecandidate = function (event) {
+    peer.onicecandidate = function(event) {
         if (event.candidate) {
             relay(message.peer.id, 'ice-candidate', event.candidate);
         }
@@ -82,15 +84,15 @@ function addPeer(data) {
 
     if (message.offer) {
         let channel = peer.createDataChannel('updates');
-        channel.onmessage = function (event) {
+        channel.onmessage = function(event) {
             onPeerData(message.peer.id, event.data);
         };
         context.rooms[message.peer.id] = channel;
         createOffer(message.peer.id, peer);
     } else {
-        peer.ondatachannel = function (event) {
+        peer.ondatachannel = function(event) {
             context.rooms[message.peer.id] = event.channel;
-            event.channel.onmessage = function (evt) {
+            event.channel.onmessage = function(evt) {
                 onPeerData(message.peer.id, evt.data);
             };
         };
@@ -156,7 +158,7 @@ window.addEventListener("load", e => {
 })
 
 window.addEventListener('beforeunload', () => {
-	context.eventSource.close()
+    context.eventSource.close()
 });
 
 /*const rtcConfig = {
