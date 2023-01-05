@@ -53,6 +53,16 @@ async function connect() {
     context.eventSource.addEventListener('set-host', () => {
         context.isHost = true;
     });
+    context.eventSource.addEventListener('drawing-true', data => {
+        context.isDrawing = true;
+        data = JSON.parse(data["data"])
+        console.log(context.username + " is drawing")
+        handleWord(data)
+    });
+    context.eventSource.addEventListener('drawing-false', data => {
+        context.isDrawing = false;
+        console.log(context.username + " stopped drawing")
+    });
 }
 
 function addPeer(data) {

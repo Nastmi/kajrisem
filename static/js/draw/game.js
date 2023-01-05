@@ -1,5 +1,6 @@
 window.addEventListener("load", e => {
     document.querySelector("#start-game").addEventListener("click", startGame)
+    document.querySelector("#next-round").addEventListener("click", nextRound)
 })
 
 function startGame(){
@@ -12,4 +13,19 @@ function startGame(){
             body: JSON.stringify({userId:context.userId, roomId:context.roomId})
         })
     }
+}
+
+function nextRound(){
+    fetch("/game/next-round", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({userId:context.userId, roomId:context.roomId})
+    })
+}
+
+function handleWord(data){
+    let word = data["word"]
+    console.log(word)
 }

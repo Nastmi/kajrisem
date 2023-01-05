@@ -15,15 +15,34 @@ router.post("/start-game", (req, res) => {
         }
     }
     room["game"] = new Game(peers);
-    if(app.get("gameLoop")){
+    /*if(app.get("gameLoop")){
         loop = app.get("gameLoop")
         loop.addNew(room, req.body.roomId)
     }
     else{
         loop = new GameLoop(room, req.body.roomId)
         app.set("gameLoop", loop)
-    }
+    }*/
 })
 
+//TEMP!
+router.post("/next-round", (req, res) => {
+    let app = req.app
+    let rooms = app.get("rooms")
+    let room = rooms[req.body.roomId]
+    if(room["game"])
+        room["game"].nextRound()
+})
+
+router.post("/check-correct", (req, res) => {
+    let app = req.app
+    let rooms = app.get("rooms")
+    let room = rooms[req.body.roomId]
+    let word = req.body.word
+    let correct = false
+    if(room["game"])
+        correct = room["game"].checkCorrectWord(word)
+    res.json({correct:correct})
+})
 
 module.exports = router;

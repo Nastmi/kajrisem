@@ -28,6 +28,7 @@ router.get('/connect', auth, (req, res) => {
         id: req.user.id,
         score: 0,
         isHost:false,
+        isDrawing:false,
         emit: (event, data) => {
             res.write(`id: ${uuid.v4()}\n`);
             res.write(`event: ${event}\n`);
