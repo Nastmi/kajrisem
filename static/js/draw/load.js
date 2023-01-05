@@ -58,7 +58,7 @@ async function connect() {
         data = JSON.parse(data["data"])
         console.log(context.username + " is drawing")
         let word = handleWord(data)
-        document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo <b>" + word; + "</b>."
+        document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo " + word;
     });
     context.eventSource.addEventListener('drawing-false', data => {
         context.isDrawing = false;

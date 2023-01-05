@@ -35,7 +35,7 @@ function drawOnCanvas(e) {
     let data;
     let rect = e.target.getBoundingClientRect();
 
-    if (context.isDrawing === false) {
+    if (!context.isDrawing) {
         return
     }
 

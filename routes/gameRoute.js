@@ -10,7 +10,7 @@ router.post("/start-game", (req, res) => {
     let room = rooms[req.body.roomId]
     let peers = []
     for (let peerId in room) {
-        if(!(peerId instanceof Game)){
+        if (!(peerId instanceof Game)) {
             peers.push(clients[peerId])
         }
     }
@@ -30,7 +30,7 @@ router.post("/next-round", (req, res) => {
     let app = req.app
     let rooms = app.get("rooms")
     let room = rooms[req.body.roomId]
-    if(room["game"])
+    if (room["game"])
         room["game"].nextRound()
 })
 
@@ -40,9 +40,9 @@ router.post("/check-correct", (req, res) => {
     let room = rooms[req.body.roomId]
     let word = req.body.word
     let correct = false
-    if(room["game"])
+    if (room["game"])
         correct = room["game"].checkCorrectWord(word)
-    res.json({correct:correct})
+    res.json({ correct: correct })
 })
 
 module.exports = router;
