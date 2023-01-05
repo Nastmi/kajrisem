@@ -17,7 +17,7 @@ async function sendMessage() {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ word: inputValue, roomId: context.roomId })
+        body: JSON.stringify({ word: inputValue, roomId: context.roomId, userId: context.userId })
     })
 
 
@@ -31,7 +31,7 @@ async function sendMessage() {
     reciveMessage(context.username, inputValue)
 
 
-    if ((await response.json()).correct) { // narediti z reciveServerMessage
+    if ((await response.json()).correct) { // reciveServerMessage
         document.querySelector("#messageInput").value = ""
         broadcast(JSON.stringify({
             type: "serverChat",

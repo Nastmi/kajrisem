@@ -50,15 +50,17 @@ class Game {
         let user = this.users[this.currentDrawing]
         user.isDrawing = true
         user.emit("drawing-true", { "word": this.currentWord })
-        for (user in this.users) {
-            user.guessedCorrectly = false
-            user.emit("new-round")
-        }
+
+        // for (user in this.users) { // to ne dela pravilno
+        //     console.log(user)
+        //     user.guessedCorrectly = false
+        //     user.emit("new-round")
+        // }
     }
 
 
     checkCorrectWord(word, userId) {
-        let correct = this.currentWord == word
+        let correct = (this.currentWord == word)
         if (correct) {
             updateScore(userId)
         }
