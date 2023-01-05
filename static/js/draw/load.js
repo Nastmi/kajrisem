@@ -6,7 +6,9 @@ let context = {
     //peers = rtc connections to other users, users = information about other users (like the username)
     peers: {},
     rooms:{},
-    users: {}
+    users: {},
+    isHost:false,
+    isDrawing:false
 };
 
 
@@ -44,8 +46,12 @@ async function connect() {
     context.eventSource.addEventListener('connected', (data) => {
         let self = JSON.parse(data.data).user
         context.users[self.id] = self
+        context.userId = self.id
         updateUserList()
-        join();
+        join()
+    });
+    context.eventSource.addEventListener('set-host', () => {
+        context.isHost = true;
     });
 }
 

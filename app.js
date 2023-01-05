@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 
 let indexRouter = require('./routes/html');
 let connectionRouter = require("./routes/connection");
+let gameRouter = require("./routes/gameRoute")
 const exp = require('constants');
 
 const app = express();
@@ -21,6 +22,7 @@ app.set("id", 100000000)
 app.set("clients", {})
 app.set("rooms", {})
 
+app.use("/game", gameRouter)
 app.use("/connection", connectionRouter)
 app.use("/", indexRouter)
 

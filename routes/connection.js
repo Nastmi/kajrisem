@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path')
 const uuid = require("uuid")
 const jwt = require('jsonwebtoken');
+const Game = require("../game/Game.js")
 
 function disconnected(client, app) {
     let clients = app.get("clients")
@@ -26,6 +27,7 @@ router.get('/connect', auth, (req, res) => {
         username: req.user.username,
         id: req.user.id,
         score: 0,
+        isHost:false,
         emit: (event, data) => {
             res.write(`id: ${uuid.v4()}\n`);
             res.write(`event: ${event}\n`);
@@ -37,7 +39,6 @@ router.get('/connect', auth, (req, res) => {
     clients[client.id] = client;
     app.set("clients", clients)
     client.emit('connected', { user: client });
-
     req.on('close', () => {
         disconnected(client, clients, app);
     });
@@ -86,7 +87,9 @@ router.post('/:roomId/join', auth, (req, res) => {
         return res.sendStatus(200);
     }
     if (!rooms[roomId]) {
-        rooms[roomId] = {};
+        rooms[roomId] = {}
+        clients[req.user.id].isHost = true
+        clients[req.user.id].emit("set-host")
     }
     let room = rooms[roomId]
     for (let peerId in room) {
@@ -118,12 +121,13 @@ function disconnected(client, clients, app) {
         let room = rooms[roomId];
         if (room[client.id]) {
             for (let peerId in room) {
-                if(client.id != peerId)
+                if(!peerId instanceof Game && client.id != peerId){
                     clients[peerId].emit('remove-peer', { peer: client, roomId });
+                }
             }
             delete room[client.id];
         }
-        if (Object.keys(room).length === 0) {
+        if (Object.keys(room).length === 1) {
             delete room[roomId];
         }
     }
