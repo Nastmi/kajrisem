@@ -8,6 +8,7 @@ class Game {
     elapsedTime
     currentWord
     currentDrawing
+    correctCount
 
     constructor(peerList) {
         this.name = Math.floor(Math.random() * 10000) + 1;
@@ -17,6 +18,7 @@ class Game {
         this.elapsedTime = 0
         this.previousTime = Date.now()
         this.currentDrawing = -1
+        this.correctCount = 0
         this.nextRound()
     }
 
@@ -33,6 +35,7 @@ class Game {
     }
 
     nextRound() {
+        console.log(this.users)
         if (this.currentDrawing >= 0) {
             let prevUser = this.users[this.currentDrawing]
             prevUser.isDrawing = false
@@ -47,12 +50,36 @@ class Game {
         let user = this.users[this.currentDrawing]
         user.isDrawing = true
         user.emit("drawing-true", { "word": this.currentWord })
+        for (user in this.users) {
+            user.guessedCorrectly = false
+            user.emit("new-round")
+        }
     }
 
 
-    checkCorrectWord(word) {
-        return this.currentWord == word
+    checkCorrectWord(word, userId) {
+        let correct = this.currentWord == word
+        if (correct) {
+            updateScore(userId)
+        }
+        return correct
     }
+
+    updateScores(userId) {
+        //this.users[userId].guessedCorrectly = true
+        for (user in this.users) {
+            if (userId == user["id"]) {
+                user.guessedCorrectly = true
+                let score = 500 - (50 * this.correctCount)
+                user.score += score
+                this.correctCount++
+            }
+        }
+        if (this.correctCount == this.users.length - 1)
+            this.nextRound()
+    }
+
+
 
 }
 

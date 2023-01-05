@@ -39,9 +39,10 @@ router.post("/check-correct", (req, res) => {
     let rooms = app.get("rooms")
     let room = rooms[req.body.roomId]
     let word = req.body.word
+    let userId = req.body.userId
     let correct = false
     if (room["game"])
-        correct = room["game"].checkCorrectWord(word)
+        correct = room["game"].checkCorrectWord(word, userId)
     res.json({ correct: correct })
 })
 

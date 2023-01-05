@@ -65,6 +65,7 @@ async function connect() {
         console.log(context.username + " stopped drawing")
         document.getElementById("isDrawing").innerHTML = "Ugani besedo!"
     });
+    context.eventSource.addEventListener('new-round', nextRound);
 }
 
 function addPeer(data) {

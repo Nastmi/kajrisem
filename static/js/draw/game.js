@@ -37,3 +37,8 @@ function handleWord(data) {
     console.log(word)
     return word
 }
+
+function nextRound() {
+    clearCanvass()
+    steps = []
+}
