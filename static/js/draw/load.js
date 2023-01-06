@@ -59,11 +59,14 @@ async function connect() {
         console.log(context.username + " is drawing")
         let word = handleWord(data)
         document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo " + word;
+        document.getElementById("next-round").disabled = false;
     });
     context.eventSource.addEventListener('drawing-false', data => {
         context.isDrawing = false;
         console.log(context.username + " stopped drawing")
         document.getElementById("isDrawing").innerHTML = "Ugani besedo!"
+        document.getElementById("start-game").disabled = true;
+        document.getElementById("next-round").disabled = true;
     });
     context.eventSource.addEventListener('new-round', nextRound);
 }
@@ -74,7 +77,7 @@ function addPeer(data) {
         return;
     }
 
-    let peer = new RTCPeerConnection();
+    let peer = new RTCPeerConnection(rtcConfig);
     context.peers[message.peer.id] = peer;
 
     peer.onicecandidate = function(event) {
@@ -162,12 +165,12 @@ window.addEventListener('beforeunload', () => {
     context.eventSource.close()
 });
 
-/*const rtcConfig = {
+const rtcConfig = {
     iceServers: [
         {
-          urls: "turn:openrelay.metered.ca:80",
-          username: "openrelayproject",
-          credential: "openrelayproject",
+            urls:"turn:34.68.238.18:3478",
+            username: "tpo-turn",
+            credential: "tpo-zljmn-2022"
         },
         {
           urls: "turn:openrelay.metered.ca:443",
@@ -175,4 +178,4 @@ window.addEventListener('beforeunload', () => {
           credential: "openrelayproject",
         },
       ],
-};*/
+};

@@ -20,17 +20,6 @@ async function sendMessage() {
         body: JSON.stringify({ word: inputValue, roomId: context.roomId, userId: context.userId })
     })
 
-
-    document.querySelector("#messageInput").value = ""
-    broadcast(JSON.stringify({
-        type: "chat",
-        user: context.username,
-        message: inputValue
-    }));
-
-    reciveMessage(context.username, inputValue)
-
-
     if ((await response.json()).correct) { // reciveServerMessage
         document.querySelector("#messageInput").value = ""
         broadcast(JSON.stringify({
@@ -38,6 +27,16 @@ async function sendMessage() {
             message: context.username + " je ugotovil pravilno"
         }));
         reciveServerMessage(context.username + " je ugotovil pravilno")
+    }
+    else{
+        document.querySelector("#messageInput").value = ""
+        broadcast(JSON.stringify({
+            type: "chat",
+            user: context.username,
+            message: inputValue
+        }));
+
+        reciveMessage(context.username, inputValue)
     }
 }
 
