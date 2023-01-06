@@ -21,11 +21,14 @@ function nextRound() {
         type: "clearCanvas",
         selectColor: selectedColor
     }
+    //TODO poglej zakaj se nextRound tolikokrat kliče še preden kaj naredimo - vidiš v chatu!!
     const chat = document.querySelector("#chat");
     let br = document.createElement("br");
     let text = document.createTextNode("------NEXT ROUND------");
     chat.appendChild(text);
     chat.appendChild(br);
+    //END
+
     clearCanvass(data);
     fetch("/game/next-round", {
         method: "POST",
