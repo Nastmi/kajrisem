@@ -51,25 +51,25 @@ class Game {
         user.isDrawing = true
         user.emit("drawing-true", { "word": this.currentWord })
 
-        // for (user in this.users) { // to ne dela pravilno
-        //     console.log(user)
-        //     user.guessedCorrectly = false
-        //     user.emit("new-round")
-        // }
+        for (let idx in this.users) { 
+             let cuser = this.users[idx]
+             cuser.guessedCorrectly = false
+             cuser.emit("new-round")
+        }
     }
 
 
     checkCorrectWord(word, userId) {
         let correct = (this.currentWord == word)
         if (correct) {
-            updateScore(userId)
+            this.updateScores(userId)
         }
         return correct
     }
 
     updateScores(userId) {
-        //this.users[userId].guessedCorrectly = true
-        for (user in this.users) {
+        for (let idx in this.users) {
+            let user = this.users[idx]
             if (userId == user["id"]) {
                 user.guessedCorrectly = true
                 let score = 500 - (50 * this.correctCount)
