@@ -18,13 +18,13 @@ function updateUserList() {
 function onPeerData(id, data) {
     console.log(data)
     let parsed = JSON.parse(data)
-    if (parsed.type == "draw") {
+    if (parsed.type === "draw") {
         steps.push(parsed)
         drawFromData(parsed)
-    } else if (parsed.type == "clearCanvas") {
+    } else if (parsed.type === "clearCanvas") {
         clearCanvass(parsed);
-    } else if (parsed.type == "chat")
+    } else if (parsed.type === "chat")
         reciveMessage(parsed["user"], parsed["message"])
-    else if (parsed.type == "serverChat")
+    else if (parsed.type === "serverChat")
         reciveServerMessage(parsed["message"])
 }

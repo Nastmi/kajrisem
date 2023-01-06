@@ -21,7 +21,11 @@ function nextRound() {
         type: "clearCanvas",
         selectColor: selectedColor
     }
-
+    const chat = document.querySelector("#chat");
+    let br = document.createElement("br");
+    let text = document.createTextNode("------NEXT ROUND------");
+    chat.appendChild(text);
+    chat.appendChild(br);
     clearCanvass(data);
     fetch("/game/next-round", {
         method: "POST",
@@ -36,9 +40,4 @@ function handleWord(data) {
     let word = data["word"]
     console.log(word)
     return word
-}
-
-function nextRound() {
-    clearCanvass()
-    steps = []
 }

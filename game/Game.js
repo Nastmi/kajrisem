@@ -1,5 +1,4 @@
 class Game {
-
     timer
     name
     wordlist
@@ -58,31 +57,27 @@ class Game {
         }
     }
 
-
     checkCorrectWord(word, userId) {
-        let correct = (this.currentWord == word)
-        if (correct) {
+        if (this.currentWord.toLowerCase() === word.toLowerCase()){
             this.updateScores(userId)
+            return true;
         }
-        return correct
+        return false;
     }
 
     updateScores(userId) {
         for (let idx in this.users) {
             let user = this.users[idx]
-            if (userId == user["id"]) {
+            if (userId === user["id"]) {
                 user.guessedCorrectly = true
                 let score = 500 - (50 * this.correctCount)
                 user.score += score
                 this.correctCount++
             }
         }
-        if (this.correctCount == this.users.length - 1)
+        if (this.correctCount === this.users.length - 1)
             this.nextRound()
     }
-
-
-
 }
 
 module.exports = Game
