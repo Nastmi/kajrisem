@@ -123,7 +123,8 @@ function disconnected(client, clients, app) {
             if(room["game"])
                 room["game"].removePlayer(client.id)
             delete room[client.id];
-            if(changeHost){
+            if(changeHost && Object.keys(clients).length > 0){
+                console.log("new host");
                 let keys = Object.keys(room)
                 let newHost = keys[0]
                 clients[newHost].isHost = true;

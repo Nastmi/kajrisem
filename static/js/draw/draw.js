@@ -51,7 +51,6 @@ function drawOnCanvas(e) {
         endY: e.clientY - rect.top,
     }
 
-
     lastPoint = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top

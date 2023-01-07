@@ -20,8 +20,8 @@ class Game {
         this.previousTime = Date.now()
         this.currentDrawing = -1
         this.correctCount = 0
-        this.roundCount = 0
-        this.maxRounds = 1
+        this.roundCount = 1
+        this.maxRounds = 3
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
         this.nextRound()
@@ -64,9 +64,8 @@ class Game {
         this.previousTime = Date.now()
         this.currentDrawing = -1
         this.correctCount = 0
-        this.roundCount = 0
-        this.maxRounds = 3
-        this.roundCount = 0
+        this.maxRounds = 1
+        this.roundCount = 1
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
         this.nextRound()
@@ -78,7 +77,7 @@ class Game {
             this.roundCount ++ 
             console.log("yeh")
         }
-        if(this.roundCount >= this.maxRounds){
+        if(this.roundCount > this.maxRounds){
             for (let idx in this.users) {
                 let user = this.users[idx]
                 let scores = {}
