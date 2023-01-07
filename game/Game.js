@@ -14,7 +14,7 @@ class Game {
     constructor(peerList) {
         this.name = Math.floor(Math.random() * 10000) + 1;
         this.users = peerList
-        this.wordlist = ["kokoš", "svinčnik", "šola", "gozdar", "roža", "čebela", "sonce", "miza", "ovca", "jabolko", "drevo", "ptica", "piškot"]
+        this.wordlist = ["kokoš", "svinčnik", "šola", "gozdar", "roža", "čebela", "sonce", "miza", "ovca", "jabolko", "drevo", "ptica", "piškot", "kuža", "mavrica", "radio", "avtobus", "boben", "šotor", "gozd", "bolnica", "ladja", "miš", "škarje", "trobenta", "vlak", "želva", "banana", "copat", "čarovnica", "dežnik", "grozdje", "indijanec", "ključ", "lev", "nos", "opica", "pomaranča", "riba", "tiger", "ura", "violina", "zmaj"]
         this.timer = 60
         this.elapsedTime = 0
         this.previousTime = Date.now()
