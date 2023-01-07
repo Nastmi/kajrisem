@@ -110,6 +110,7 @@ router.post('/relay/:peerId/:event', auth, (req, res) => {
 
 function disconnected(client, clients, app) {
     let rooms = app.get("rooms")
+    let changeHost = clients[client.id].isHost
     delete clients[client.id];
     for (let roomId in rooms) {
         let room = rooms[roomId];
@@ -122,6 +123,12 @@ function disconnected(client, clients, app) {
             if(room["game"])
                 room["game"].removePlayer(client.id)
             delete room[client.id];
+            if(changeHost){
+                let keys = Object.keys(room)
+                let newHost = keys[0]
+                clients[newHost].isHost = true;
+                clients[newHost].emit("set-host")
+            }
         }
         if (Object.keys(room).length === 1) {
             delete room[roomId];
