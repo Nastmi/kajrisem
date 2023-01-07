@@ -117,9 +117,9 @@ function gameEnd(data){
     Swal.fire({
         title: "Konec igre!",
         html: text,
-        imageUrl: "../../img/pencil.ico",
-        imageWidth: 150,
-        imageHeight: 150,
+        imageUrl: "../../img/kaj_risem.png",
+        imageWidth: 714,
+        imageHeight: 173,
         imageAlt: "Custom image",
         confirmButtonText: "Ponovno igraj",
         cancelButtonText: "IZHOD",

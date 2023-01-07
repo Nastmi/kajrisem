@@ -116,7 +116,7 @@ img {
 }
 
 #error-join, #error-join-false{
-    color: red;
+    color: #53e237;
     display: none;
     text-align: center;
 }
