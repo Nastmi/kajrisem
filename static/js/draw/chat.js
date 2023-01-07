@@ -43,9 +43,10 @@ async function sendMessage() {
 function reciveServerMessage(message) {
     const chat = document.querySelector("#chat");
     let br = document.createElement("br");
-
     let text = document.createTextNode(message);
-    chat.appendChild(text);
+    let mark = document.createElement("mark");
+    mark.textContent = text.textContent;
+    chat.appendChild(mark);
     chat.appendChild(br);
 }
 
