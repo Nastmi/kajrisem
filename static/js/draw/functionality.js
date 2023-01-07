@@ -6,9 +6,9 @@ function updateUserList() {
     let myself = false;
     for (const [key, value] of Object.entries(peers)) {
         if (!myself) {
-            list.innerHTML += "Jaz: " + value["username"] + " "
+            list.innerHTML += "Jaz: " + value["username"] + ", TOČKE: 0";
         } else {
-            list.innerHTML += value["username"] + " ";
+            list.innerHTML += value["username"] + ", TOČKE: 0";
         }
         myself = true;
         list.appendChild(br);

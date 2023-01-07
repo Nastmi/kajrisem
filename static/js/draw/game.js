@@ -1,6 +1,7 @@
 window.addEventListener("load", e => {
     document.querySelector("#start-game").addEventListener("click", startGame)
     document.querySelector("#next-round").addEventListener("click", nextRoundButton)
+    document.querySelector("#back-to-main").addEventListener("click", backToMain)
     document.getElementById("game-pin").innerHTML = "GAME PIN: " + context.roomId;
 })
 
@@ -25,6 +26,7 @@ function nextRound(information){
         console.log(context.username + " is drawing")
         let word = information["word"]
         document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo " + word;
+        document.getElementById("start-game").disabled = true;
         document.getElementById("next-round").disabled = false;
     }
     else{
@@ -39,18 +41,35 @@ function nextRound(information){
         type: "clearCanvas",
         selectColor: selectedColor
     }
-    //TODO poglej zakaj se nextRound tolikokrat kliče še preden kaj naredimo - vidiš v chatu!!
     const chat = document.querySelector("#chat");
     let br = document.createElement("br");
     chat.appendChild(text);
     chat.appendChild(br);
-    //END
 
     clearCanvass(data);
 }
 
 function updateScores(scores){
-    console.log(scores)
+    let br = document.createElement("br");
+    let list = document.querySelector("#tempUserList")
+    list.innerHTML = ""
+    let myself = false;
+    for (const [key, value] of Object.entries(context.users)) {
+        for (const [keyScore, valueScore] of Object.entries(scores)) {
+            console.log(key + " " + keyScore + " " + valueScore)
+            console.log(scores)
+            if(key === keyScore)
+            {
+                if (!myself) {
+                    list.innerHTML += "Jaz: " + value["username"] + ", TOČKE:" + valueScore;
+                } else {
+                    list.innerHTML += value["username"] + ", TOČKE: " + valueScore;
+                }
+            }
+        }
+        myself = true;
+        list.appendChild(br);
+    }
 }
 
 function nextRoundButton(){
@@ -61,4 +80,11 @@ function nextRoundButton(){
         },
         body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
     })
+}
+
+function backToMain()
+{
+    window.close()
+    url = "/"
+    window.location.href = url
 }
