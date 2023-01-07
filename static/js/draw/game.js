@@ -109,7 +109,8 @@ function gameEnd(data){
         imageHeight: 150,
         imageAlt: "Custom image",
         confirmButtonText: "IZHOD",
-        showCancelButton: false,
+        cancelButtonText: "Ponovno igraj",
+        showCancelButton: true,
         background: "white",
         allowOutsideClick: false,
         backdrop: `rgba(0,0,0,0.7)`
