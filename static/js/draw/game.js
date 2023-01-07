@@ -29,6 +29,10 @@ function nextRound(information){
         document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo: " + word.toUpperCase();
         document.getElementById("start-game").disabled = true;
         document.getElementById("next-round").disabled = false;
+        document.querySelector("#options-div").style.display = 'block';
+        document.querySelector("#colors-div").style.display = 'block';
+        document.querySelector("#clear-canvas-div").style.display = 'block';
+
     }
     else{
         context.isDrawing = false;
@@ -36,6 +40,9 @@ function nextRound(information){
         document.getElementById("isDrawing").innerHTML = "Ugani besedo!"
         document.getElementById("start-game").disabled = true;
         document.getElementById("next-round").disabled = true;
+        document.querySelector("#options-div").style.display = 'none';
+        document.querySelector("#colors-div").style.display = 'none';
+        document.querySelector("#clear-canvas-div").style.display = 'none';
     }
 
     data = { // naredi se za ostale playerje
