@@ -78,7 +78,49 @@ function updateScores(scores){
 
 function gameEnd(data){
     console.log(data)
-    scores = data["scores"]
+    let text = "";
+    let index = 1;
+    for (const [keyScore, valueScore] of Object.entries(data["order"]))
+    {
+        for (const [key, value] of Object.entries(context.users))
+        {
+            if(key === valueScore[0])
+            {
+                if(index === 1)
+                {
+                    text += "#1# IME: " + value["username"] +" ŠTEVILO TOČK: " + valueScore[1] + "<br><br>";
+                    break;
+                }
+                else
+                {
+                    text += "#" + index + "# IME: " + value["username"] +" ŠTEVILO TOČK: " + valueScore[1] + "<br>";
+                    break;
+                }
+            }
+        }
+        index++;
+    }
+
+    Swal.fire({
+        title: "Konec igre!",
+        html: text,
+        imageUrl: "../../img/pencil.ico",
+        imageWidth: 150,
+        imageHeight: 150,
+        imageAlt: "Custom image",
+        confirmButtonText: "IZHOD",
+        showCancelButton: false,
+        background: "white",
+        allowOutsideClick: false,
+        backdrop: `rgba(0,0,0,0.7)`
+    }).then(function(result) {
+        if (result.value)
+        {
+            window.location.href = "/";
+        }
+        else
+            window.location.href = "/";
+    })
 }
 
 function nextRoundButton(){
