@@ -89,7 +89,6 @@ function updateTimer(data) {
 }
 
 function gameEnd(data){
-    console.log(data)
     let text = "";
     let index = 1;
     for (const [keyScore, valueScore] of Object.entries(data["order"]))
@@ -113,43 +112,69 @@ function gameEnd(data){
         index++;
     }
 
-    Swal.fire({
-        title: "Konec igre!",
-        html: text,
-        imageUrl: "../../img/kaj_risem.png",
-        imageWidth: 714,
-        imageHeight: 173,
-        imageAlt: "Custom image",
-        confirmButtonText: "Ponovno igraj",
-        cancelButtonText: "IZHOD",
-        showCancelButton: true,
-        background: "white",
-        allowOutsideClick: false,
-        backdrop: `rgba(0,0,0,0.7)`
-    }).then(function(result) {
-        if (result.value)
-        {
-            fetch("/game/restart-game", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
-            })
-        }
-        else
-            window.location.href = "/?fail=false";
-    })
-}
-
-function nextRoundButton(){
-    fetch("/game/next-round", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
-    })
+    if(context.isHost)
+    {
+        Swal.fire({
+            title: "Konec igre!",
+            html: text,
+            imageUrl: "../../img/kaj_risem.png",
+            imageWidth: 714,
+            imageHeight: 173,
+            imageAlt: "Custom image",
+            confirmButtonText: "IZHOD",
+            cancelButtonText: "Ponovno igraj",
+            showCancelButton: true,
+            background: "white",
+            allowOutsideClick: false,
+            backdrop: `rgba(0,0,0,0.7)`
+        }).then(function(result) {
+            if (result.value)
+            {
+                window.location.href = "/?fail=false";
+            }
+            else
+            {
+                fetch("/game/restart-game", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
+                })
+            }
+        })
+    }
+    else
+    {
+        Swal.fire({
+            title: "Konec igre!",
+            html: text,
+            imageUrl: "../../img/kaj_risem.png",
+            imageWidth: 714,
+            imageHeight: 173,
+            imageAlt: "Custom image",
+            confirmButtonText: "IZHOD",
+            showCancelButton: false,
+            background: "white",
+            allowOutsideClick: false,
+            backdrop: `rgba(0,0,0,0.7)`
+        }).then(function(result) {
+            if (result.value)
+            {
+                window.location.href = "/?fail=false";
+            }
+            else
+            {
+                fetch("/game/restart-game", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
+                })
+            }
+        })
+    }
 }
 
 function backToMain(){
