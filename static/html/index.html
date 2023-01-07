@@ -9,55 +9,56 @@
     <title>Kaj risem</title>
 </head>
 <body>
-    <div class="about">
-        <div class="wrapper">
-            <h2>Igra</h2>
-            <br>
-            <p>
-                Kaj rišem je brezplačna spletna večigralska igra risanja in ugibanja.
-                <br><br>
-                Običajna igra je sestavljena iz nekaj krogov, kjer mora vsak igralec izžrebati izbrano besedo, drugi pa jo morajo uganiti, da osvojijo točke!
-                <br><br>
-                Oseba z največ točkami na koncu igre bo okronana za zmagovalca!
-                <br><br>
-                Vso srečo!
-            </p>
-        </div>
+<div class="about">
+    <div class="wrapper">
+        <h2>Igra</h2>
+        <br>
+        <p>
+            Kaj rišem je brezplačna spletna večigralska igra risanja in ugibanja.
+            <br><br>
+            Običajna igra je sestavljena iz nekaj krogov, kjer mora vsak igralec izžrebati izbrano besedo, drugi pa jo
+            morajo uganiti, da osvojijo točke!
+            <br><br>
+            Oseba z največ točkami na koncu igre bo okronana za zmagovalca!
+            <br><br>
+            Vso srečo!
+        </p>
     </div>
+</div>
 
-    <div class="main">
-        <div class="wrapper">
-            <h1>Kaj rišem?</h1>
-            <input type="text" id="inputName" placeholder="Vpiši vzdevek" class="input-name" />
-            <br>
-            <input type="text" id="inputRoom" placeholder="Vpiši številko sobe " class="input-name" />
-            <label id="error-join">Če se želite pridružiti sobi polje ne sme biti prazno!</label>
-            <label id="error-join-false">Vnesli ste številko sobe, ki ne obstaja!</label>
-            <br/>
-            <button type="button" class="play-btn" id="play-btn">Pridruži se sobi!</button>
-            <br>
-            <button type="button" class="room-btn" id="room-btn">Ustvari svojo igro</button>
-        </div>
+<div class="main">
+    <div class="wrapper">
+        <img src="../img/kaj_risem.png"/>
+        <input type="text" id="inputName" placeholder="Vpiši svoje ime" class="input-name"/>
+        <br>
+        <input type="text" id="inputRoom" class="input-room" placeholder="Vnesi številko sobe prijatelja"/>
+        <button type="button" id="play-btn" class="play-btn">Pridruži se!</button>
+        <label id="error-join">Če se želite pridružiti sobi polje ne sme biti prazno!</label>
+        <label id="error-join-false">Vnesli ste številko sobe, ki ne obstaja!</label>
+        <br>
+        Ali
+        <button type="button" class="room-btn" id="room-btn">Ustvari svojo igro</button>
     </div>
+</div>
 
-    <div class="instructions">
-        <div class="wrapper">
-            <h2>Navodila</h2>
-            <br>
-            <p>
-                ● Ko si na vrsti, izberi besedo, ki jo želiš narisati!
-                <br><br>
-                ● Poskusi narisati izbrano besedo! Brez črkovanja!
-                <br><br>
-                ● Naj drugi igralci poskušajo uganiti tvojo izžrebano besedo!
-                <br><br>
-                ● Ko nisi na vrsti, poskusi uganiti, kaj rišejo drugi igralci!
-                <br><br>
-                ● Zberi največ točk in na koncu postani zmagovalec!
-            </p>
-        </div>
+<div class="instructions">
+    <div class="wrapper">
+        <h2>Navodila</h2>
+        <br>
+        <p>
+            ● Ko si na vrsti, izberi besedo, ki jo želiš narisati!
+            <br><br>
+            ● Poskusi narisati izbrano besedo! Brez črkovanja!
+            <br><br>
+            ● Naj drugi igralci poskušajo uganiti tvojo izžrebano besedo!
+            <br><br>
+            ● Ko nisi na vrsti, poskusi uganiti, kaj rišejo drugi igralci!
+            <br><br>
+            ● Zberi največ točk in na koncu postani zmagovalec!
+        </p>
     </div>
-    <script type="text/javascript" src="../js/index.js"></script>
-    </script>
+</div>
+<script type="text/javascript" src="../js/index.js"></script>
+</script>
 </body>
 </html>

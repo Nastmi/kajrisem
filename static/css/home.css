@@ -2,11 +2,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Lucida Sans", sans-serif;
+    font-family: "Bradley Hand", cursive;
 }
 
 body {
-    background: #10A19D;
+    background: #8085dd;
+}
+
+img {
+    display: block;
+    margin: auto;
+    width: 60%;
+    padding-bottom: 30px;
 }
 
 .about {
@@ -23,9 +30,10 @@ body {
 }
 
 .about .wrapper, .main .wrapper, .instructions .wrapper {
-    background: #FFBF00;
+    background: #3f48cc;
     padding: 15px;
     border-radius: 10px;
+    color: white;
 }
 
 .about, .instructions {
@@ -38,44 +46,63 @@ body {
 }
 
 .main h1 {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
 }
 
 .main .wrapper {
     width: 100%;
-    padding: 100px 0;
+    padding: 50px 0;
+    text-align: center;
 }
 
-.input-name, .play-btn, .room-btn {
+.input-name, .input-room, .play-btn, .room-btn {
     width: 50%;
     margin: auto;
     display: block;
 }
 
-.input-name {
+.input-name, .input-room {
     font-size: 20px;
     border: none;
     padding: 5px;
     border-radius: 3px;
 }
 
+.input-room {
+    font-size: 18px;
+}
+
+.input-name {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.join-room {
+    width: 50%;
+    margin: auto;
+}
+
 .play-btn {
-    font-size: 28px;
+    font-size: 20px;
     padding: 5px 0;
+    margin-top: 10px;
     border-radius: 3px;
     border: none;
     background: #53e237;
     font-weight: bold;
+    color: white;
 }
 
 .room-btn {
     margin-bottom: 40px;
     border: none;
     border-radius: 3px;
-    font-size: 18px;
+    font-size: 20px;
+    margin-top: 20px;
     padding: 5px 0;
     font-weight: bolder;
     background: #2c8de7;
+    color: white;
 }
 
 .play-btn:hover {
