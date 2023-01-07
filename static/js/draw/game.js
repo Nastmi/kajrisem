@@ -126,7 +126,7 @@ function gameEnd(data){
             })
         }
         else
-            window.location.href = "/";
+            window.location.href = "/?fail=false";
     })
 }
 
@@ -141,6 +141,5 @@ function nextRoundButton(){
 }
 
 function backToMain(){
-    window.close()
     window.location.href = "/?fail=false"
 }
