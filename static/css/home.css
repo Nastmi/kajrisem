@@ -88,6 +88,12 @@ body {
     background-color: rgba(44,141,231,0.8);
 }
 
+#error-join{
+    color: red;
+    display: none;
+    text-align: center;
+}
+
 @media screen and (min-width: 992px){
     body {
         display: grid;
