@@ -108,8 +108,8 @@ function gameEnd(data){
         imageWidth: 150,
         imageHeight: 150,
         imageAlt: "Custom image",
-        confirmButtonText: "IZHOD",
-        cancelButtonText: "Ponovno igraj",
+        confirmButtonText: "Ponovno igraj",
+        cancelButtonText: "IZHOD",
         showCancelButton: true,
         background: "white",
         allowOutsideClick: false,
@@ -117,7 +117,13 @@ function gameEnd(data){
     }).then(function(result) {
         if (result.value)
         {
-            window.location.href = "/";
+            fetch("/game/restart-game", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
+            })
         }
         else
             window.location.href = "/";
