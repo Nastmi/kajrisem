@@ -88,7 +88,7 @@ router.post('/:roomId/join', auth, (req, res) => {
     if (rooms[roomId] && rooms[roomId][req.user.id]) {
         return res.sendStatus(200);
     }
-    if (!rooms[roomId]) {
+    if (Object.keys(rooms[roomId]).length == 0) {
         rooms[roomId] = {}
         clients[req.user.id].isHost = true
         clients[req.user.id].emit("set-host")

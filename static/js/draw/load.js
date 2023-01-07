@@ -1,16 +1,4 @@
-let context = {
-    username: 'user' + parseInt(Math.random() * 100000),
-    roomId: window.location.pathname.substring(6),
-    token: null,
-    eventSource: null,
-    //peers = rtc connections to other users, users = information about other users (like the username)
-    peers: {},
-    rooms: {},
-    users: {},
-    isHost: false,
-    isDrawing: false
-};
-
+let context
 
 async function getToken() {
     let res = await fetch('/connection/access', {
@@ -53,22 +41,14 @@ async function connect() {
     context.eventSource.addEventListener('set-host', () => {
         context.isHost = true;
     });
-    context.eventSource.addEventListener('drawing-true', data => {
-        context.isDrawing = true;
+    context.eventSource.addEventListener('new-round',  data => {
         data = JSON.parse(data["data"])
-        console.log(context.username + " is drawing")
-        let word = handleWord(data)
-        document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo " + word;
-        document.getElementById("next-round").disabled = false;
+        nextRound(data)
     });
-    context.eventSource.addEventListener('drawing-false', data => {
-        context.isDrawing = false;
-        console.log(context.username + " stopped drawing")
-        document.getElementById("isDrawing").innerHTML = "Ugani besedo!"
-        document.getElementById("start-game").disabled = true;
-        document.getElementById("next-round").disabled = true;
+    context.eventSource.addEventListener('update-scores',  data => {
+        data = JSON.parse(data["data"])
+        updateScores(data["scores"])
     });
-    context.eventSource.addEventListener('new-round', nextRound);
 }
 
 function addPeer(data) {
@@ -158,6 +138,25 @@ function removePeer(data) {
 }
 
 window.addEventListener("load", e => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    let username = params["username"]
+    if (typeof username == 'undefined' || username == "")
+        username = 'user' + parseInt(Math.random() * 100000)
+    context = {
+        username: username,
+        roomId: window.location.pathname.substring(6),
+        token: null,
+        eventSource: null,
+        //peers = rtc connections to other users, users = information about other users (like the username)
+        peers: {},
+        rooms: {},
+        users: {},
+        isHost: false,
+        isDrawing: false
+    };
+    let url = document.location.href;
+    window.history.replaceState({}, "", url.split("?")[0]);
     connect()
 })
 

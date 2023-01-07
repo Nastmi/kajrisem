@@ -34,27 +34,24 @@ class Game {
     }
 
     nextRound() {
-        console.log(this.users)
         if (this.currentDrawing >= 0) {
             let prevUser = this.users[this.currentDrawing]
             prevUser.isDrawing = false
-            prevUser.emit("drawing-false")
         }
         this.currentDrawing++
-            if (this.currentDrawing >= this.users.length)
-                this.currentDrawing = 0
+        if (this.currentDrawing >= this.users.length)
+            this.currentDrawing = 0
         let newWordIndex = Math.floor(Math.random() * this.wordlist.length)
         this.currentWord = this.wordlist[newWordIndex];
-        delete this.wordlist[newWordIndex]
+        this.wordlist.splice(newWordIndex, 1)
         let user = this.users[this.currentDrawing]
         user.isDrawing = true
-        user.emit("drawing-true", { "word": this.currentWord })
-
         for (let idx in this.users) { 
-             let cuser = this.users[idx]
-             cuser.guessedCorrectly = false
-             cuser.emit("new-round")
+            let cuser = this.users[idx]
+            cuser.guessedCorrectly = false
+            cuser.emit("new-round", {"isDrawing":cuser.isDrawing, "word":this.currentWord})
         }
+        this.correctCount = 0
     }
 
     checkCorrectWord(word, userId) {
@@ -74,6 +71,17 @@ class Game {
                 user.score += score
                 this.correctCount++
             }
+            if(user.isDrawing){
+                user.score += 50
+            }
+            let scores = {}
+            for (let idx2 in this.users) {
+                let user2 = this.users[idx2]
+                let userId = user2.id
+                let score = user2.score
+                scores[userId] = score
+            }
+            user.emit("update-scores", {scores:scores})
         }
         if (this.correctCount === this.users.length - 1)
             this.nextRound()
