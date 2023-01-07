@@ -1,9 +1,7 @@
 window.addEventListener("load", e => {
     document.querySelector("#start-game").addEventListener("click", startGame)
-    document.querySelector("#next-round").addEventListener("click", nextRoundButton)
     document.querySelector("#back-to-main").addEventListener("click", backToMain)
     document.getElementById("game-pin").innerHTML = "GAME PIN: " + context.roomId;
-    document.getElementById("next-round").disabled = true;
 })
 
 function startGame() {
@@ -28,7 +26,6 @@ function nextRound(information){
         let word = information["word"]
         document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo: " + word.toUpperCase();
         document.getElementById("start-game").disabled = true;
-        document.getElementById("next-round").disabled = false;
         document.querySelector("#options-div").style.display = 'block';
         document.querySelector("#colors-div").style.display = 'block';
         document.querySelector("#clear-canvas-div").style.display = 'block';
@@ -39,7 +36,6 @@ function nextRound(information){
         console.log(context.username + " stopped drawing")
         document.getElementById("isDrawing").innerHTML = "Ugani besedo!"
         document.getElementById("start-game").disabled = true;
-        document.getElementById("next-round").disabled = true;
         document.querySelector("#options-div").style.display = 'none';
         document.querySelector("#colors-div").style.display = 'none';
         document.querySelector("#clear-canvas-div").style.display = 'none';
