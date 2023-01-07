@@ -5,14 +5,6 @@ const uuid = require("uuid")
 const jwt = require('jsonwebtoken');
 const Game = require("../game/Game.js")
 
-function disconnected(client, app) {
-    let clients = app.get("clients")
-    let index = clients.indexOf(client);
-    if (index > -1) {
-        clients.splice(index, 1);
-    }
-    app.set("clients", clients)
-}
 
 router.get('/connect', auth, (req, res) => {
     if (req.headers.accept !== 'text/event-stream') {
@@ -123,10 +115,12 @@ function disconnected(client, clients, app) {
         let room = rooms[roomId];
         if (room[client.id]) {
             for (let peerId in room) {
-                if(!peerId instanceof Game && client.id !== peerId){
+                if(peerId != "game" && client.id !== peerId){
                     clients[peerId].emit('remove-peer', { peer: client, roomId });
                 }
             }
+            if(room["game"])
+                room["game"].removePlayer(client.id)
             delete room[client.id];
         }
         if (Object.keys(room).length === 1) {

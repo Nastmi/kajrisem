@@ -74,6 +74,9 @@ class Game {
             if(user.isDrawing){
                 user.score += 50
             }
+        }
+        for (let idx in this.users) {
+            let user = this.users[idx]
             let scores = {}
             for (let idx2 in this.users) {
                 let user2 = this.users[idx2]
@@ -85,6 +88,19 @@ class Game {
         }
         if (this.correctCount === this.users.length - 1)
             this.nextRound()
+    }
+
+    removePlayer(playerId){
+        let idxToRemove = 0;
+        for (let idx in this.users) {
+            let user = this.users[idx]
+            if (playerId === user["id"]) {
+                idxToRemove = idx
+            }
+        }
+        if(this.users[idxToRemove].guessedCorrectly)
+            this.correctCount --
+        this.users.splice(idxToRemove, 1)
     }
 }
 
