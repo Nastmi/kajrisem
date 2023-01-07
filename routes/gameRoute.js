@@ -46,4 +46,13 @@ router.post("/check-correct", (req, res) => {
     res.json({ correct: correct })
 })
 
+router.post("/restart-game", (req, res) => {
+    let app = req.app
+    let rooms = app.get("rooms")
+    let room = rooms[req.body.roomId]
+    let userId = req.body.userId
+    if (room["game"])
+        correct = room["game"].restart()
+})
+
 module.exports = router;

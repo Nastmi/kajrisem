@@ -76,6 +76,11 @@ function updateScores(scores){
     }
 }
 
+function gameEnd(data){
+    console.log(data)
+    scores = data["scores"]
+}
+
 function nextRoundButton(){
     fetch("/game/next-round", {
         method: "POST",
@@ -86,8 +91,7 @@ function nextRoundButton(){
     })
 }
 
-function backToMain()
-{
+function backToMain(){
     window.close()
     url = "/"
     window.location.href = url

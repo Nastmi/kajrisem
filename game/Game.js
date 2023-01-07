@@ -8,6 +8,8 @@ class Game {
     currentWord
     currentDrawing
     correctCount
+    roundCount
+    maxRounds
 
     constructor(peerList) {
         this.name = Math.floor(Math.random() * 10000) + 1;
@@ -18,6 +20,8 @@ class Game {
         this.previousTime = Date.now()
         this.currentDrawing = -1
         this.correctCount = 0
+        this.roundCount = 0
+        this.maxRounds = 1
         this.nextRound()
     }
 
@@ -33,7 +37,41 @@ class Game {
         }
     }
 
+    restart(){
+        this.users = peerList
+        this.wordlist = ["kokoš", "svinčnik", "šola", "gozdar", "roža", "čebela", "sonce", "miza", "ovca", "jabolko", "drevo", "ptica", "piškot"]
+        this.timer = 60
+        this.elapsedTime = 0
+        this.previousTime = Date.now()
+        this.currentDrawing = -1
+        this.correctCount = 0
+        this.roundCount = 0
+        this.maxRounds = 3
+        this.nextRound()
+    }
+
     nextRound() {
+        if(this.roundCount >= this.maxRounds){
+            for (let idx in this.users) {
+                let user = this.users[idx]
+                let scores = {}
+                for (let idx2 in this.users) {
+                    let user2 = this.users[idx2]
+                    let userId = user2.id
+                    let score = user2.score
+                    scores[userId] = score
+                }
+                let items = Object.keys(scores).map(function(key) {
+                    return [key, scores[key]];
+                });
+                items.sort(function(first, second) {
+                    return second[1] - first[1];
+                });
+                user.emit("game-end", {scores:scores, order:items})
+            }
+            return
+        }
+        this.roundCount ++
         if (this.currentDrawing >= 0) {
             let prevUser = this.users[this.currentDrawing]
             prevUser.isDrawing = false
