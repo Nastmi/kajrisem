@@ -21,8 +21,9 @@ class Game {
         this.currentDrawing = -1
         this.correctCount = 0
         this.roundCount = 0
-        this.maxRounds = 5
+        this.maxRounds = 1
         this.gameLoopOver = false
+        this.playersHaveDrawn = 0
         this.nextRound()
     }
 
@@ -57,7 +58,6 @@ class Game {
     }
 
     restart(){
-        this.users = peerList
         this.wordlist = ["kokoš", "svinčnik", "šola", "gozdar", "roža", "čebela", "sonce", "miza", "ovca", "jabolko", "drevo", "ptica", "piškot"]
         this.timer = 60
         this.elapsedTime = 0
@@ -66,11 +66,18 @@ class Game {
         this.correctCount = 0
         this.roundCount = 0
         this.maxRounds = 3
+        this.roundCount = 0
         this.gameLoopOver = false
+        this.playersHaveDrawn = 0
         this.nextRound()
     }
 
     nextRound() {
+        if(this.playersHaveDrawn >= this.users.length){
+            this.playersHaveDrawn = 0
+            this.roundCount ++ 
+            console.log("yeh")
+        }
         if(this.roundCount >= this.maxRounds){
             for (let idx in this.users) {
                 let user = this.users[idx]
@@ -91,7 +98,7 @@ class Game {
             }
             return
         }
-        this.roundCount ++
+        this.playersHaveDrawn ++
         if (this.currentDrawing >= 0) {
             let prevUser = this.users[this.currentDrawing]
             prevUser.isDrawing = false
