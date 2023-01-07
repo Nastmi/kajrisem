@@ -132,7 +132,7 @@ function iceCandidate(data) {
 }
 
 function removePeer(data) {
-    console.log("rmoving peer")
+    console.log("removing peer")
     let message = JSON.parse(data.data);
     if (context.peers[message.peer.id]) {
         context.peers[message.peer.id].close();
@@ -146,7 +146,7 @@ window.addEventListener("load", e => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     let username = params["username"]
-    if (typeof username == 'undefined' || username == "")
+    if (typeof username == 'undefined' || username === "")
         username = 'user' + parseInt(Math.random() * 100000)
     context = {
         username: username,

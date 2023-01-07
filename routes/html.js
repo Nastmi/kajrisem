@@ -23,7 +23,7 @@ router.get('/room/:roomId', (req, res) => {
     let app = req.app
     let rooms = app.get("rooms")
     if(!rooms[roomNum])
-        res.json({sucess:false})
+        res.redirect(`/?fail=true`)
     else
         res.sendFile(path.join(__dirname, '../static/html/draw.html'));
 });

@@ -142,6 +142,5 @@ function nextRoundButton(){
 
 function backToMain(){
     window.close()
-    url = "/"
-    window.location.href = url
+    window.location.href = "/?fail=false"
 }
