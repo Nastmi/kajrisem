@@ -58,7 +58,7 @@ class Game {
     }
 
     checkCorrectWord(word, userId) {
-        if (this.currentWord.toLowerCase() === word.toLowerCase()){
+        if (this.currentWord.localeCompare(word, undefined, { sensitivity: 'base' }) === 0){
             this.updateScores(userId)
             return true;
         }
