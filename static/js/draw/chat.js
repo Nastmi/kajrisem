@@ -24,9 +24,9 @@ async function sendMessage() {
         document.querySelector("#messageInput").value = ""
         broadcast(JSON.stringify({
             type: "serverChat",
-            message: context.username + " je ugotovil pravilno"
+            message: context.username + " je uganil besedo"
         }));
-        reciveServerMessage(context.username + " je ugotovil pravilno")
+        reciveServerMessage(context.username + " je uganil besedo")
     }
     else{
         document.querySelector("#messageInput").value = ""

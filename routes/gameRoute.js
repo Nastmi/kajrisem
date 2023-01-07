@@ -15,14 +15,14 @@ router.post("/start-game", (req, res) => {
         }
     }
     room["game"] = new Game(peers);
-    /*if(app.get("gameLoop")){
+    if(app.get("gameLoop")){
         loop = app.get("gameLoop")
         loop.addNew(room, req.body.roomId)
     }
     else{
         loop = new GameLoop(room, req.body.roomId)
         app.set("gameLoop", loop)
-    }*/
+    }
 })
 
 //TEMP!

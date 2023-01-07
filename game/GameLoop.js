@@ -10,7 +10,9 @@ class GameLoop{
 
     loop(){
         for(let [roomId, room] of Object.entries(this.rooms)){
-            room["game"].update()
+            if (!room["game"].checkIfOver()) {
+                room["game"].update()
+            }
         }
         setImmediate(() => {
             this.loop()

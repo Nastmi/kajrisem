@@ -49,6 +49,10 @@ async function connect() {
         data = JSON.parse(data["data"])
         updateScores(data["scores"])
     });
+    context.eventSource.addEventListener('update-timer', data => {
+        data = JSON.parse(data["data"])
+        updateTimer(data)
+    });
     context.eventSource.addEventListener('game-end',  data => {
         data = JSON.parse(data["data"])
         gameEnd(data)

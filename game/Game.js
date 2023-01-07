@@ -21,8 +21,13 @@ class Game {
         this.currentDrawing = -1
         this.correctCount = 0
         this.roundCount = 0
-        this.maxRounds = 1
+        this.maxRounds = 5
+        this.gameLoopOver = false
         this.nextRound()
+    }
+
+    checkIfOver() {
+        return this.gameLoopOver
     }
 
     update() {
@@ -34,6 +39,20 @@ class Game {
             console.log(this.name + " " + this.timer)
             this.timer -= 1
             this.elapsedTime = 0
+            for (let idx in this.users) { 
+                let cuser = this.users[idx]
+                cuser.guessedCorrectly = false
+                cuser.emit("update-timer", {"timer": this.timer, "round": this.roundCount})
+            }
+        }
+        if (this.timer <= 0) {
+            if (this.roundCount < this.maxRounds){
+                this.gameLoopOver = false
+            } else {
+                this.gameLoopOver = true
+            }
+            this.timer = 60
+            this.nextRound()
         }
     }
 
@@ -47,6 +66,7 @@ class Game {
         this.correctCount = 0
         this.roundCount = 0
         this.maxRounds = 3
+        this.gameLoopOver = false
         this.nextRound()
     }
 
@@ -124,8 +144,15 @@ class Game {
             }
             user.emit("update-scores", {scores:scores})
         }
-        if (this.correctCount === this.users.length - 1)
+        if (this.correctCount === this.users.length - 1) {
+            if (this.roundCount < this.maxRounds){
+                this.gameLoopOver = false
+            } else {
+                this.gameLoopOver = true
+            }
+            this.timer = 60
             this.nextRound()
+        }
     }
 
     removePlayer(playerId){

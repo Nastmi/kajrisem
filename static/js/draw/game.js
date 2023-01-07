@@ -76,6 +76,19 @@ function updateScores(scores){
     }
 }
 
+function updateTimer(data) {
+    //console.log(data["round"], data["timer"])
+    let timer = document.querySelector("#timer")
+    let round = document.querySelector("#round")
+    timer.innerHTML = "Čas: " + data["timer"]
+    round.innerHTML = "Krog: " + data["round"]
+    if (data["timer"] <= 10) {
+        timer.style.color = "#ff0000"
+    } else {
+        timer.style.color = "#000000"
+    }
+}
+
 function gameEnd(data){
     console.log(data)
     let text = "";
