@@ -19,11 +19,11 @@ function startGame() {
 function nextRound(information){
 
     let text = document.createTextNode("Začenja se naslednji krog!");
+    let word = information["word"]
 
     if(information["isDrawing"]){
         context.isDrawing = true;
         console.log(context.username + " is drawing")
-        let word = information["word"]
         document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo: " + word.toUpperCase();
         document.getElementById("start-game").disabled = true;
         document.querySelector("#options-div").style.display = 'block';
@@ -34,7 +34,7 @@ function nextRound(information){
     else{
         context.isDrawing = false;
         console.log(context.username + " stopped drawing")
-        document.getElementById("isDrawing").innerHTML = "Ugani besedo!"
+        document.getElementById("isDrawing").innerHTML = "Ugani besedo, dolžine " + word.length +" !"
         document.getElementById("start-game").disabled = true;
         document.querySelector("#options-div").style.display = 'none';
         document.querySelector("#colors-div").style.display = 'none';
