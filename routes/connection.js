@@ -88,7 +88,7 @@ router.post('/:roomId/join', auth, (req, res) => {
     if (rooms[roomId] && rooms[roomId][req.user.id]) {
         return res.sendStatus(200);
     }
-    if (Object.keys(rooms[roomId]).length == 0) {
+    if (Object.keys(rooms[roomId]).length === 0) {
         rooms[roomId] = {}
         clients[req.user.id].isHost = true
         clients[req.user.id].emit("set-host")
@@ -123,7 +123,7 @@ function disconnected(client, clients, app) {
         let room = rooms[roomId];
         if (room[client.id]) {
             for (let peerId in room) {
-                if(!peerId instanceof Game && client.id != peerId){
+                if(!peerId instanceof Game && client.id !== peerId){
                     clients[peerId].emit('remove-peer', { peer: client, roomId });
                 }
             }

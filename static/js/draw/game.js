@@ -1,6 +1,7 @@
 window.addEventListener("load", e => {
     document.querySelector("#start-game").addEventListener("click", startGame)
     document.querySelector("#next-round").addEventListener("click", nextRoundButton)
+    document.getElementById("game-pin").innerHTML = "GAME PIN: " + context.roomId;
 })
 
 function startGame() {
