@@ -101,12 +101,12 @@ function gameEnd(data){
             {
                 if(index === 1)
                 {
-                    text += "#1# IME: " + value["username"] +" ŠTEVILO TOČK: " + valueScore[1] + "<br><br>";
+                    text += "#1# IME: " + value["username"] +" , ŠTEVILO TOČK: " + valueScore[1] + "<br><br>";
                     break;
                 }
                 else
                 {
-                    text += "#" + index + "# IME: " + value["username"] +" ŠTEVILO TOČK: " + valueScore[1] + "<br>";
+                    text += "#" + index + "# IME: " + value["username"] +" , ŠTEVILO TOČK: " + valueScore[1] + "<br>";
                     break;
                 }
             }
