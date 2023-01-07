@@ -101,12 +101,12 @@ function gameEnd(data){
             {
                 if(index === 1)
                 {
-                    text += "#1# IME: " + value["username"] +" ŠTEVILO TOČK: " + valueScore[1] + "<br><br>";
+                    text += "#1# IME: " + value["username"] +", ŠTEVILO TOČK: " + valueScore[1] + "<br><br>";
                     break;
                 }
                 else
                 {
-                    text += "#" + index + "# IME: " + value["username"] +" ŠTEVILO TOČK: " + valueScore[1] + "<br>";
+                    text += "#" + index + "# IME: " + value["username"] +", ŠTEVILO TOČK: " + valueScore[1] + "<br>";
                     break;
                 }
             }
@@ -117,9 +117,9 @@ function gameEnd(data){
     Swal.fire({
         title: "Konec igre!",
         html: text,
-        imageUrl: "../../img/pencil.ico",
-        imageWidth: 150,
-        imageHeight: 150,
+        imageUrl: "../../img/kaj_risem.png",
+        imageWidth: 714,
+        imageHeight: 173,
         imageAlt: "Custom image",
         confirmButtonText: "Ponovno igraj",
         cancelButtonText: "IZHOD",

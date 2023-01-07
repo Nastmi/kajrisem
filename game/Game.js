@@ -39,7 +39,7 @@ class Game {
             console.log(this.name + " " + this.timer)
             this.timer -= 1
             this.elapsedTime = 0
-            for (let idx in this.users) { 
+            for (let idx in this.users) {
                 let cuser = this.users[idx]
                 cuser.guessedCorrectly = false
                 cuser.emit("update-timer", {"timer": this.timer, "round": this.roundCount})
