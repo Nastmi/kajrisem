@@ -17,3 +17,10 @@ Vso srečo!
 - Naj drugi igralci poskušajo uganiti tvojo izžrebano besedo!
 - Ko nisi na vrsti, poskusi uganiti, kaj rišejo drugi igralci!
 - Zberi največ točk in na koncu postani zmagovalec!
+
+## Sodelovali pri razvoju
+- Žiga Črv
+- Luka Gulič
+- Jure Brenčič Jazbec
+- Mark Žgavec
+- Natan Šemrl
