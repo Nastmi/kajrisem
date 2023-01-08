@@ -69,7 +69,6 @@ class Game {
             } else {
                 this.gameLoopOver = true
             }
-            this.timer = 60
             this.timer = this.timerSet
             this.nextRound()
         }
@@ -173,7 +172,6 @@ class Game {
             } else {
                 this.gameLoopOver = true
             }
-            this.timer = 60
             this.timer = this.timerSet
             this.nextRound()
         }
