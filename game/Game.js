@@ -11,17 +11,24 @@ class Game {
     roundCount
     maxRounds
 
-    constructor(peerList) {
+    constructor(peerList, maxPlayers, time, rounds, words, yoursWords) {
         this.name = Math.floor(Math.random() * 10000) + 1;
         this.users = peerList
-        this.wordlist = ["kokoš", "svinčnik", "šola", "gozdar", "roža", "čebela", "sonce", "miza", "ovca", "jabolko", "drevo", "ptica", "piškot", "kuža", "mavrica", "radio", "avtobus", "boben", "šotor", "gozd", "bolnica", "ladja", "miš", "škarje", "trobenta", "vlak", "želva", "banana", "copat", "čarovnica", "dežnik", "grozdje", "indijanec", "ključ", "lev", "nos", "opica", "pomaranča", "riba", "tiger", "ura", "violina", "zmaj"]
-        this.timer = 60
+        if(yoursWords)
+        {
+            this.wordlist = words;
+        }
+        else{
+            let arr = ["kokoš", "svinčnik", "šola", "gozdar", "roža", "čebela", "sonce", "miza", "ovca", "jabolko", "drevo", "ptica", "piškot", "kuža", "mavrica", "radio", "avtobus", "boben", "šotor", "gozd", "bolnica", "ladja", "miš", "škarje", "trobenta", "vlak", "želva", "banana", "copat", "čarovnica", "dežnik", "grozdje", "indijanec", "ključ", "lev", "nos", "opica", "pomaranča", "riba", "tiger", "ura", "violina", "zmaj"]
+            this.wordlist = arr.concat(words);
+        }
+        this.timer = time
         this.elapsedTime = 0
         this.previousTime = Date.now()
         this.currentDrawing = -1
         this.correctCount = 0
         this.roundCount = 1
-        this.maxRounds = 3
+        this.maxRounds = rounds
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
         this.nextRound()

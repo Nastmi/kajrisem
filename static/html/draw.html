@@ -56,7 +56,7 @@
                 <td>
                     <form oninput="result.value = slider_rounds.value">
                         <label><b>Število krogov</b></label><br/>
-                        <input type="range" id="slider_rounds" min="2" max="5" step="10" value="3"> <br/> ➜
+                        <input type="range" id="slider_rounds" min="2" max="6" step="1" value="3"> <br/> ➜
                         <output name="result" for="slider">3</output>
                     </form>
                 </td>
@@ -64,7 +64,7 @@
             <tr>
                 <td colspan="3">
                     <b>Moje besede</b><br>
-                    <textarea id="textarea-words" rows="5" placeholder="Vnesi vsaj 2 besedi, ločeni z vejico (,)"></textarea><br>
+                    <textarea id="textarea-words" rows="5" placeholder="Vnesi 0 ali več besed, ločene z vejico (,)"></textarea><br>
                     <label class="custom-words-label"><input type="checkbox" id="checkbox-words"/> Uporabi le vnesene besede</label>
                 </td>
             </tr>
@@ -78,7 +78,7 @@
 
     <article class="play-container">
         <div class="aboveCanvas">
-            <p><span id="round">Krog: 1</span> <span id="timer">Čas: 60</span></p>
+            <p><span id="round">Krog: 1</span> <span id="timer">Čas: </span></p>
             <h1 id="isDrawing">Čakaj da se igra začne...</h1>
         </div>
         <canvas id="canvas"></canvas>

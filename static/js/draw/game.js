@@ -20,7 +20,6 @@ function startGame() {
             let rounds = document.querySelector("#slider_rounds").value
             let textarea = document.getElementById("textarea-words");
             let checkbox = document.getElementById("checkbox-words").checked;
-            console.log(checkbox)
             if(textarea.value === "")
             {
                 if(checkbox)
@@ -36,13 +35,12 @@ function startGame() {
                 }
                 else
                 {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Nisi vnesel nobene besede ...',
-                        text: 'Vnesi vsaj 2 besedi, ločeni z vejico (,)',
-                        background: "white",
-                        allowOutsideClick: false,
-                        backdrop: `rgba(0,0,0,0.7)`
+                    fetch("/game/start-game", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, maxPlayers: maxPlayers, time: time, rounds:rounds, words: [], yoursWords: false })
                     })
                 }
             }
@@ -67,7 +65,7 @@ function startGame() {
                     Swal.fire({
                         icon: 'error',
                         title: 'Napaka pri vnosu svojih besed. ...',
-                        text: 'Vnesi vsaj 2 besedi, ločeni z vejico (,)',
+                        text: 'Vnesi 0 ali več besed, ločene z vejico (,)',
                         background: "white",
                         allowOutsideClick: false,
                         backdrop: `rgba(0,0,0,0.7)`
