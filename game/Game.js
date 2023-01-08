@@ -1,5 +1,6 @@
 class Game {
     timer
+    timerSet
     name
     wordlist
     users
@@ -10,6 +11,7 @@ class Game {
     correctCount
     roundCount
     maxRounds
+    maxPlayers
 
     constructor(peerList, maxPlayers, time, rounds, words, yoursWords) {
         this.name = Math.floor(Math.random() * 10000) + 1;
@@ -23,6 +25,7 @@ class Game {
             this.wordlist = arr.concat(words);
         }
         this.timer = time
+        this.timerSet = time;
         this.elapsedTime = 0
         this.previousTime = Date.now()
         this.currentDrawing = -1
@@ -31,6 +34,7 @@ class Game {
         this.maxRounds = rounds
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
+        this.maxPlayers = maxPlayers
         this.nextRound()
     }
 
@@ -59,7 +63,7 @@ class Game {
             } else {
                 this.gameLoopOver = true
             }
-            this.timer = 60
+            this.timer = this.timerSet
             this.nextRound()
         }
     }
@@ -163,7 +167,7 @@ class Game {
             } else {
                 this.gameLoopOver = true
             }
-            this.timer = 60
+            this.timer = this.timerSet
             this.nextRound()
         }
     }
