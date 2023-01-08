@@ -1,6 +1,14 @@
 .private-room-container {
     width: 100%;
     display: none;
+    background: #3f48cc;
+    padding: 4px;
+}
+
+.wrapper {
+    background: white;
+    border-radius: 4px;
+    padding: 4px;
 }
 
 table {
@@ -21,6 +29,7 @@ select {
 
 textarea {
     resize: none;
+    outline: none;
 }
 
 .custom-words-label {
@@ -37,11 +46,12 @@ textarea {
     margin-top: 10px;
     text-align: center;
     font-size: 18px;
+    outline: none;
 }
 
 .play-btn {
     width: 100%;
-    font-size: 28px;
+    font-size: 22px;
     padding: 5px 0;
     border-radius: 5px;
     border: none;

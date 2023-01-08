@@ -17,21 +17,24 @@
 
 <body>
 
-    <header>
-        <h1>Kaj rišem?</h1>
-        <h3 id="game-pin"></h3>
-        <button id="back-to-main">IZHOD</button>
-    </header>
+<header>
+    <img src="../img/kaj_risem.png"/>
+</header>
 
-    <nav>
-        <h2>Igralci:</h2>
+<nav>
+    <div class="users-container">
+        <h2>Igralci</h2>
+        <hr>
         <div id="tempUserList">
-
+            <!-- usernames and their points -->
         </div>
-    </nav>
+    </div>
+    <button id="back-to-main">Zapusti igro</button>
+</nav>
 
-    <!-- initially set to display: none -->
-    <article class="private-room-container">
+<!-- initially set to display: none -->
+<article class="private-room-container">
+    <div class="wrapper">
         <h1>Čakanje na igralce...</h1>
         <table>
             <div class="invite-link-container">
@@ -43,7 +46,8 @@
                     <form oninput="result.value = slider_time.value">
                         <label><b>Čas risanja</b></label><br/>
                         <input type="range" id="slider_time" min="20" max="240" step="10" value="80"> <br/> ➜
-                        <output name="result" for="slider">80</output> sekund
+                        <output name="result" for="slider">80</output>
+                        sekund
                     </form>
                 </td>
                 <td>
@@ -67,72 +71,77 @@
                 </td>
             </tr>
         </table>
-    </article>
+    </div>
+</article>
 
-    <article class="play-container">
-        <div class="aboveCanvas">
-            <p><span id="round">Krog: 1</span> <span id="timer">Čas: </span></p>
-            <h1 id="isDrawing">Čakaj da se igra začne...</h1>
+<article class="play-container">
+    <div class="aboveCanvas">
+        <p><span id="round">Krog: 1</span> <span id="timer">Čas: 60</span></p>
+        <h1 id="isDrawing">Čakaj da se igra začne...</h1>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="container">
+        <div id="options-div" class="row hide">
+            <label class="title">Nastavitve čopiča</label>
+            <ul class="options">
+                <li class="option active tool" id="brush">
+                    <img src="../icons/brush.svg" alt="">
+                    <span>Čopič</span>
+                </li>
+                <li class="option tool" id="eraser">
+                    <img src="../icons/eraser.svg" alt="">
+                    <span>Radirka</span>
+                </li>
+                <li class="option">
+                    <input type="range" id="size-slider" min="1" max="30" value="5">
+                </li>
+            </ul>
         </div>
-        <canvas id="canvas"></canvas>
-
-        <div class="container">
-            <div id="options-div" class="row hide">
-                <label class="title">Nastavitve čopiča</label>
-                <ul class="options">
-                    <li class="option active tool" id="brush">
-                        <img src="../icons/brush.svg" alt="">
-                        <span>Čopič</span>
-                    </li>
-                    <li class="option tool" id="eraser">
-                        <img src="../icons/eraser.svg" alt="">
-                        <span>Radirka</span>
-                    </li>
-                    <li class="option">
-                        <input type="range" id="size-slider" min="1" max="30" value="5">
-                    </li>
-                </ul>
-            </div>
-            <div id="colors-div" class="row colors">
-                <label class="title">Izberi barve</label>
-                <ul class="options">
-                    <li class="option selected"></li>
-                    <li class="option"></li>
-                    <li class="option"></li>
-                    <li class="option"></li>
-                    <li class="option">
-                        <input type="color" id="color-picker" value="#4A98F7">
-                    </li>
-                </ul>
-            </div>
-            <div id="clear-canvas-div" class="row buttons">
-                <button class="clear-canvas">Pobriši platno</button>
-            </div>
+        <div id="colors-div" class="row colors">
+            <label class="title">Izberi barve</label>
+            <ul class="options">
+                <li class="option selected"></li>
+                <li class="option"></li>
+                <li class="option"></li>
+                <li class="option"></li>
+                <li class="option">
+                    <input type="color" id="color-picker" value="#4A98F7">
+                </li>
+            </ul>
         </div>
+        <div id="clear-canvas-div" class="row buttons">
+            <button class="clear-canvas">Pobriši platno</button>
+        </div>
+    </div>
 
-    </article>
+</article>
 
-    <aside>
-        <h2>Pogovorno okno:</h2>
+<aside>
+    <div class="chat-wrapper">
+        <h2>Pogovorno okno</h2>
+        <hr>
         <div id="chatWindow">
             <p id="chat"></p>
             <!--dodajamo chat-->
         </div>
         <div id="bottom">
-            <input id="messageInput" type="text" placeholder="Vnesi besedilo" />
+            <input id="messageInput" type="text" placeholder="Vnesi besedilo"/>
             <button id="sendMessage">Pošlji</button>
         </div>
-    </aside>
+    </div>
+</aside>
 
-    <footer>
-        <p>Copyright © 2022 - Ziga, Luka, Natan, Mark, Jure.</p>
-    </footer>
+<footer>
+    <p>Copyright © 2022 - Žiga, Luka, Natan, Mark, Jure.</p>
+</footer>
 
-    <script type="text/javascript" src="/js/draw/functionality.js"></script>
-    <script type="text/javascript" src="/js/draw/load.js"></script>
-    <script type="text/javascript" src="/js/draw/draw.js"></script>
-    <script type="text/javascript" src="/js/draw/chat.js"></script>
-    <script type="text/javascript" src="/js/draw/game.js"></script>
+<script type="text/javascript" src="/js/draw/functionality.js"></script>
+<script type="text/javascript" src="/js/draw/load.js"></script>
+<script type="text/javascript" src="/js/draw/draw.js"></script>
+<script type="text/javascript" src="/js/draw/chat.js"></script>
+<script type="text/javascript" src="/js/draw/game.js"></script>
 </body>
 
 </html>
