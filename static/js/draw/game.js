@@ -6,7 +6,7 @@ window.addEventListener("load", e => {
         // Show settings
         document.querySelector(".private-room-container").style.display = "block"
         document.querySelector(".play-container").style.display = "none"
-        document.querySelector(".invite-link").value = context.roomId
+        document.querySelector(".invite-link").value = "ŠTEVILKA SOBE: " + context.roomId
     }
 })
 
