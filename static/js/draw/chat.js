@@ -21,7 +21,9 @@ async function sendMessage() {
             },
             body: JSON.stringify({ word: inputValue, roomId: context.roomId, userId: context.userId })
         })
-        let pack = (await response.json()).pack
+        response = await response.json()
+        let pack = response["pack"]
+        console.log(pack)
         if (!(pack["repeat"]) && pack["correct"]) { // reciveServerMessage
             window.sounds.correct.play();
             broadcast(JSON.stringify({
