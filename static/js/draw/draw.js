@@ -78,7 +78,7 @@ function drawFromData(data) {
     ctx.lineWidth = data.brushWidthh;
     ctx.fillStyle = data.selectColor;
     if (data.selectTool === "brush" || data.selectTool === "eraser") {
-        ctx.strokeStyle = data.selectTool === "eraser" ? "#fff" : data.selectColor;
+        ctx.strokeStyle = data.selectTool === "eraser" ? "#F8F8F8" : data.selectColor;
         ctx.moveTo(data.startX, data.startY);
         ctx.lineTo(data.endX, data.endY);
         ctx.stroke();
