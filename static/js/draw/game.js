@@ -2,13 +2,11 @@ window.addEventListener("load", e => {
     document.querySelector("#start-game").addEventListener("click", startGame)
     document.querySelector("#back-to-main").addEventListener("click", backToMain)
     document.getElementById("game-pin").innerHTML = "ŠTEVILKA SOBE: " + context.roomId;
-    if(!context.isHost)
+    if(context.isHost)
     {
-        document.querySelector("#start-game").style.display = 'none';
-    }
-    else
-    {
-        document.getElementById("isDrawing").innerHTML = "Pritisnite gumb: \"ZAČNI IGRO\"";
+        // Show settings
+        document.querySelector(".private-room-container").style.display = "block"
+        document.querySelector(".play-container").style.display = "none"
     }
 })
 
@@ -28,7 +26,10 @@ function nextRound(information){
 
     let text = document.createTextNode("Začenja se naslednji krog!");
     let word = information["word"]
-    document.querySelector("#start-game").style.display = 'none';
+
+    // Show canvas
+    document.querySelector(".private-room-container").style.display = "none"
+    document.querySelector(".play-container").style.display = "block"
 
     if(information["isDrawing"]){
         context.isDrawing = true;
