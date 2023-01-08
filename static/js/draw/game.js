@@ -86,7 +86,6 @@ function startGame() {
 
 function nextRound(information){
 
-    let text = document.createTextNode("Začenja se naslednji krog!");
     let word = information["word"]
 
     // Show canvas
@@ -115,10 +114,6 @@ function nextRound(information){
         type: "clearCanvas",
         selectColor: selectedColor
     }
-    const chat = document.querySelector("#chat");
-    let br = document.createElement("br");
-    chat.appendChild(text);
-    chat.appendChild(br);
 
     clearCanvass(data);
 }
@@ -152,6 +147,7 @@ function updateTimer(data) {
     let round = document.querySelector("#round")
     timer.innerHTML = "Čas: " + data["timer"]
     round.innerHTML = "Krog: " + data["round"]
+    context.round = data["round"]
     if (data["timer"] <= 10) {
         timer.style.color = "#ff0000"
     } else {
