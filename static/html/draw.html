@@ -62,34 +62,10 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <label><b>Način besed</b></label><br/>
-                    <select name="word_mode">
-                    <option value="normal">Običajno</option>
-                    <option value="hidden">Skrito</option>
-                    <option value="combination">Mešano</option>
-                </select>
-                </td>
-                <td>
-                    <form oninput="result.value = slider_words.value">
-                        <label><b>Število besed</b></label><br/>
-                        <input type="range" id="slider_words" min="1" max="5" step="1" value="3"> <br/> ➜
-                        <output name="result" for="slider">3</output>
-                    </form>
-                </td>
-                <td>
-                    <form oninput="result.value = slider_clues.value">
-                        <label><b>Število namigov</b></label><br/>
-                        <input type="range" id="slider_clues" min="0" max="5" step="1" value="2"> <br/> ➜
-                        <output name="result" for="slider">2</output>
-                    </form>
-                </td>
-            </tr>
-            <tr>
                 <td colspan="3">
                     <b>Moje besede</b><br>
-                    <textarea rows="5" placeholder="Vnesi vsaj 10 besed, dolgih 1-32 znakov in ločenih z vejico (,)"></textarea><br>
-                    <label class="custom-words-label"><input type="checkbox"/> Uporabi le vnesene besede</label>
+                    <textarea id="textarea-words" rows="5" placeholder="Vnesi vsaj 2 besedi, ločeni z vejico (,)"></textarea><br>
+                    <label class="custom-words-label"><input type="checkbox" id="checkbox-words"/> Uporabi le vnesene besede</label>
                 </td>
             </tr>
             <tr>

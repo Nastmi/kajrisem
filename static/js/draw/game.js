@@ -12,17 +12,68 @@ window.addEventListener("load", e => {
 })
 
 function startGame() {
-    console.log(Object.keys(context.users))
     if(Object.keys(context.users).length > 1)
     {
         if (context.isHost) {
-            fetch("/game/start-game", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
-            })
+            let maxPlayers = document.querySelector("#slider_players").value
+            let time = document.querySelector("#slider_time").value
+            let rounds = document.querySelector("#slider_rounds").value
+            let textarea = document.getElementById("textarea-words");
+            let checkbox = document.getElementById("checkbox-words").checked;
+            console.log(checkbox)
+            if(textarea.value === "")
+            {
+                if(checkbox)
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Nisi vnesel nobene besede ...',
+                        text: 'Ne moreš uporabiti samo svojih besed, če nisi vnesel nobene.',
+                        background: "white",
+                        allowOutsideClick: false,
+                        backdrop: `rgba(0,0,0,0.7)`
+                    })
+                }
+                else
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Nisi vnesel nobene besede ...',
+                        text: 'Vnesi vsaj 2 besedi, ločeni z vejico (,)',
+                        background: "white",
+                        allowOutsideClick: false,
+                        backdrop: `rgba(0,0,0,0.7)`
+                    })
+                }
+            }
+            else
+            {
+                const words = textarea.value.split(",");
+                if (words.length > 1 && words.every(Boolean)) {
+                    let checkbox = document.getElementById("checkbox-words").checked;
+                    let yoursWords = false;
+                    if(checkbox)
+                    {
+                        yoursWords = true;
+                    }
+                    fetch("/game/start-game", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, maxPlayers: maxPlayers, time: time, rounds:rounds, words: words, yoursWords: yoursWords })
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Napaka pri vnosu svojih besed. ...',
+                        text: 'Vnesi vsaj 2 besedi, ločeni z vejico (,)',
+                        background: "white",
+                        allowOutsideClick: false,
+                        backdrop: `rgba(0,0,0,0.7)`
+                    })
+                }
+            }
         }
     }
     else{
