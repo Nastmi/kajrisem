@@ -14,6 +14,7 @@ async function sendMessage() {
     let inputValue = document.querySelector("#messageInput").value
     if(inputValue.trim() !== "")
     {
+        document.querySelector("#messageInput").value = ""
         response = await fetch("/game/check-correct", {
             method: "POST",
             headers: {
@@ -43,7 +44,6 @@ async function sendMessage() {
 
             reciveMessage(context.username, inputValue)
         }
-        document.querySelector("#messageInput").value = ""
     }
 }
 
