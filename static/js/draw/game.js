@@ -96,7 +96,7 @@ function nextRound(information){
 
     if(information["isDrawing"]){
         context.isDrawing = true;
-        console.log(context.username + " is drawing")
+        //console.log(context.username + " is drawing")
         document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo: " + word.toUpperCase();
         document.querySelector("#options-div").style.display = 'block';
         document.querySelector("#colors-div").style.display = 'block';
@@ -105,8 +105,13 @@ function nextRound(information){
     }
     else{
         context.isDrawing = false;
-        console.log(context.username + " stopped drawing")
-        document.getElementById("isDrawing").innerHTML = "Ugani besedo, dolžine " + word.length +" !"
+        //console.log(context.username + " stopped drawing")
+        let niz = ""
+        for(let i = 0; i < word.length; i++) {
+            niz += "_ "
+        }
+        niz.trim()
+        document.getElementById("isDrawing").innerHTML = "Ugani besedo: " + niz 
         document.querySelector("#options-div").style.display = 'none';
         document.querySelector("#colors-div").style.display = 'none';
         document.querySelector("#clear-canvas-div").style.display = 'none';
@@ -127,8 +132,8 @@ function updateScores(scores){
     let myself = false;
     for (const [key, value] of Object.entries(context.users)) {
         for (const [keyScore, valueScore] of Object.entries(scores)) {
-            console.log(key + " " + keyScore + " " + valueScore)
-            console.log(scores)
+            //console.log(key + " " + keyScore + " " + valueScore)
+            //console.log(scores)
             if(key === keyScore)
             {
                 if (!myself) {
@@ -144,10 +149,11 @@ function updateScores(scores){
 }
 
 function updateTimer(data) {
-    //console.log(data["round"], data["timer"])
+    let word = data["word"]
+    let letters = data["letters"]
     let timer = document.querySelector("#timer")
     let round = document.querySelector("#round")
-    timer.innerHTML = "Čas: " + data["timer"]
+    timer.innerHTML = "Čas: " + data["timer"].toString().padStart(2, '0')
     round.innerHTML = "Krog: " + data["round"]
     context.round = data["round"]
     if (data["timer"] <= 10) {
@@ -157,6 +163,22 @@ function updateTimer(data) {
         window.sounds.timer.pause();
         window.sounds.timer.currentTime = 0;
         timer.style.color = "#000000"
+    }
+
+    if(!data["isDrawing"]){
+        let niz = ""
+        for(let i = 0; i < word.length; i++) {
+            if (letters.includes(i)) {
+                niz += word[i].toUpperCase() + " "
+            } else {
+                niz += "_ "
+            }
+        }
+        niz.trim()
+        document.getElementById("isDrawing").innerHTML = "Ugani besedo: " + niz 
+        document.querySelector("#options-div").style.display = 'none';
+        document.querySelector("#colors-div").style.display = 'none';
+        document.querySelector("#clear-canvas-div").style.display = 'none';
     }
 }
 

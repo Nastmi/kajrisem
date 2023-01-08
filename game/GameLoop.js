@@ -20,12 +20,12 @@ class GameLoop{
     }
 
     addNew(room, roomId){
-        console.log("added new")
+        //console.log("added new")
         this.rooms[roomId] = room
     }
 
     remove(roomId){
-        console.log("removed")
+        //console.log("removed")
         delete this.rooms[roomId]
     }
 

@@ -50,13 +50,22 @@ class Game {
         this.elapsedTime += delta
         this.previousTime = Date.now()
         if (this.elapsedTime >= 1000) {
-            console.log(this.name + " " + this.timer)
             this.timer -= 1
             this.elapsedTime = 0
+            if (this.timer <= this.newLetterTimer) {
+                this.newLetterTimer = this.newLetterTimer - this.letterDelayTimer
+                let incluesLetter = false
+                do {
+                    let newLetterIDX = Math.floor(Math.random()*this.currentWord.length)
+                    let incluesLetter = this.letterIDs.includes(newLetterIDX)
+                    if (!incluesLetter)
+                        this.letterIDs.push(newLetterIDX)
+                } while(incluesLetter)
+            }
             for (let idx in this.users) {
                 let cuser = this.users[idx]
                 cuser.guessedCorrectly = false
-                cuser.emit("update-timer", {"timer": this.timer, "round": this.roundCount})
+                cuser.emit("update-timer", {"timer": this.timer, "round": this.roundCount, "word":this.currentWord, "letters":this.letterIDs, "isDrawing":cuser.isDrawing})
             }
         }
         if (this.timer <= 0) {
@@ -87,7 +96,7 @@ class Game {
         if(this.playersHaveDrawn >= this.users.length){
             this.playersHaveDrawn = 0
             this.roundCount ++ 
-            console.log("yeh")
+            //console.log("yeh")
         }
         if(this.roundCount > this.maxRounds){
             for (let idx in this.users) {
@@ -122,6 +131,10 @@ class Game {
         this.wordlist.splice(newWordIndex, 1)
         let user = this.users[this.currentDrawing]
         user.isDrawing = true
+        let wordlLength = this.currentWord.length - 2
+        this.letterDelayTimer = this.maxTime / (wordlLength + 2)
+        this.newLetterTimer = this.maxTime - this.letterDelayTimer
+        this.letterIDs = []
         for (let idx in this.users) { 
             let cuser = this.users[idx]
             cuser.guessedCorrectly = false

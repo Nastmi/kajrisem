@@ -16,7 +16,7 @@ function updateUserList() {
 }
 
 function onPeerData(id, data) {
-    console.log(data)
+    //console.log(data)
     let parsed = JSON.parse(data)
     if (parsed.type === "draw") {
         steps.push(parsed)
