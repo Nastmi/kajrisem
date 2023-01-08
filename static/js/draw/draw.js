@@ -87,7 +87,7 @@ function drawFromData(data) {
 
 function clearCanvass(data) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#F8F8F8";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
    // ctx.fillStyle = data.selectColor;
 }

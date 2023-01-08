@@ -1,10 +1,36 @@
 *{
     box-sizing: border-box;
-    font-family: "Lucida Sans", sans-serif;
+    font-family: "Bradley Hand", cursive;
 }
 
 body {
     margin: 0;
+    background: #3f48cc;
+}
+
+.play-container {
+    background: #3f48cc;
+    padding: 0 4px 0 4px;
+}
+
+#back-to-main {
+    position: relative;
+    float: right;
+    margin: 8px 0 0 0;
+    border-radius: 4px;
+    font-size: 16px;
+    border: #3f48cc;
+}
+
+#back-to-main:hover {
+    cursor: pointer;
+    background: lightgray;
+}
+
+img {
+    display: block;
+    margin: auto;
+    width: 20%;
 }
 
 #tempUserList {
@@ -14,20 +40,21 @@ body {
 }
 
 #canvas{
-    border: 2px solid #ff0000;
+    background: #F8F8F8;
     width: 100%;
     height: 500px;
+    vertical-align: bottom;
 }
 
 header {
-    background-color: #9933cc;
+    background-color: #3f48cc;
     color: #ffffff;
     padding: 15px;
     grid-area: header;
 }
 
 footer {
-    background-color: #0099cc;
+    background-color: #3f48cc;
     color: #ffffff;
     text-align: center;
     font-size: 12px;
@@ -37,24 +64,70 @@ footer {
 
 aside {
     position: relative;
-    background-color: #33b5e5;
-    padding: 15px;
-    color: #ffffff;
-    font-size: 14px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.24);
+    background-color: #3f48cc;
     grid-area: aside;
-    align-self: start;
+    color: #ffffff;
     height: 100%;
+    align-self: start;
+    padding: 4px 8px 4px 4px;
 }
 
-h1,h2,h3 {
+.chat-wrapper {
+    background: white;
+    padding: 16px;
+    border-radius: 4px;
+    color: black;
+}
+
+#chatWindow{
+    height: 518px;
+    overflow-y: auto;
+    line-height: 1.4;
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#bottom input {
+    width: 80%;
+    background: #E5E4E2;
+    border: none;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 4px;
+    outline: none;
+}
+
+#bottom button {
+    border: none;
+    background: #3f48cc;
+    border-radius: 4px;
+    padding: 7px 14px 5px 14px;
+    color: white;
+}
+
+#bottom button:hover {
+    cursor: pointer;
+    background-color: #8085dd;
+}
+
+h1, h2, h3 {
     text-align: center;
 }
 
 nav {
-    padding: 10px;
+    padding: 4px 4px 4px 8px;
     grid-area: nav;
+    background-color: #3f48cc;
+}
+
+.users-container {
+    background: white;
+    height: 95%;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 article {
@@ -66,14 +139,8 @@ article {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-}
-
-#chatWindow{
-    position: relative;
-    max-height: 480px;
-    display: flex;
-    flex-direction: column-reverse;
-    overflow-y: auto;
+    background: white;
+    border-radius: 4px 4px 0 0;
 }
 
 nav a {
@@ -87,11 +154,6 @@ nav a {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
     0 1px 2px rgba(0, 0, 0, 0.24);
     transition: transform 0.5s;
-}
-#bottom {
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 5px;
 }
 
 nav a:hover {
