@@ -57,6 +57,8 @@ async function connect() {
         data = JSON.parse(data["data"])
         gameEnd(data)
     });
+    window.wrongSound = new Audio("../sounds/wrong.opus");
+    debugger;
 }
 
 function addPeer(data) {

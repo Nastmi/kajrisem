@@ -31,6 +31,7 @@ async function sendMessage() {
         }
         else{
             document.querySelector("#messageInput").value = ""
+            window.wrongSound.play();
             broadcast(JSON.stringify({
                 type: "chat",
                 user: context.username,
