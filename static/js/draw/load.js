@@ -150,6 +150,8 @@ window.addEventListener("load", e => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     let username = params["username"]
+    let isHost = params["isHost"]
+
     if (typeof username == 'undefined' || username === "")
         username = 'user' + parseInt(Math.random() * 100000)
     context = {
@@ -164,6 +166,12 @@ window.addEventListener("load", e => {
         isHost: false,
         isDrawing: false
     };
+
+    if(isHost === "true")
+    {
+        context.isHost = true;
+    }
+
     let url = document.location.href;
     window.history.replaceState({}, "", url.split("?")[0]);
     connect()

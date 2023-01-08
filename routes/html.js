@@ -14,7 +14,7 @@ router.get('/room', (req, res) =>  {
     let rooms = app.get("rooms")
     rooms[id] = {}
     app.set("rooms", rooms)
-    res.redirect(`/room/${id}?username=${req.query.username}`);
+    res.redirect(`/room/${id}?username=${req.query.username}&isHost=true`);
 });
 
 router.get('/room/:roomId', (req, res) => {

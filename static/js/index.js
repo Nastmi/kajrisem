@@ -1,7 +1,7 @@
 window.addEventListener("load", e => {
     document.querySelector("#room-btn").addEventListener("click", e => {
         let user = document.querySelector("#inputName").value
-        url = "/room" + "?username=" + user
+        url = "/room" + "?username=" + user + "&isHost=true";
         window.location.href = url
     })
 

@@ -2,6 +2,14 @@ window.addEventListener("load", e => {
     document.querySelector("#start-game").addEventListener("click", startGame)
     document.querySelector("#back-to-main").addEventListener("click", backToMain)
     document.getElementById("game-pin").innerHTML = "ŠTEVILKA SOBE: " + context.roomId;
+    if(!context.isHost)
+    {
+        document.querySelector("#start-game").style.display = 'none';
+    }
+    else
+    {
+        document.getElementById("isDrawing").innerHTML = "Pritisnite gumb: \"ZAČNI IGRO\"";
+    }
 })
 
 function startGame() {
