@@ -24,6 +24,11 @@ class GameLoop{
         this.rooms[roomId] = room
     }
 
+    remove(roomId){
+        console.log("removed")
+        delete this.rooms[roomId]
+    }
+
 }
 
 module.exports = GameLoop

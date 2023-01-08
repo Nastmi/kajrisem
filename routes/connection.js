@@ -132,6 +132,10 @@ function disconnected(client, clients, app) {
             }
         }
         if (Object.keys(room).length === 1) {
+            if(room["game"]){
+                loop = app.get("gameLoop")
+                loop.remove(roomId)
+            }
             delete room[roomId];
         }
     }
