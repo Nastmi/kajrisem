@@ -1,5 +1,6 @@
 class Game {
     timer
+    timerSet
     name
     wordlist
     users
@@ -30,6 +31,7 @@ class Game {
         this.maxPlayers = maxPlayers
 
         this.timer = time
+        this.timerSet = time;
         this.elapsedTime = 0
         this.previousTime = Date.now()
         this.currentDrawing = -1
@@ -38,6 +40,7 @@ class Game {
         this.maxRounds = rounds
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
+        this.maxPlayers = maxPlayers
         this.nextRound()
     }
 
@@ -67,6 +70,7 @@ class Game {
                 this.gameLoopOver = true
             }
             this.timer = 60
+            this.timer = this.timerSet
             this.nextRound()
         }
     }
@@ -170,6 +174,7 @@ class Game {
                 this.gameLoopOver = true
             }
             this.timer = 60
+            this.timer = this.timerSet
             this.nextRound()
         }
     }
