@@ -94,7 +94,7 @@ function nextRound(information){
 
     if(information["isDrawing"]){
         context.isDrawing = true;
-        console.log(context.username + " is drawing")
+        //console.log(context.username + " is drawing")
         document.getElementById("isDrawing").innerHTML = "Na vrsti si! Rišeš besedo: " + word.toUpperCase();
         document.querySelector("#options-div").style.display = 'block';
         document.querySelector("#colors-div").style.display = 'block';
@@ -103,7 +103,7 @@ function nextRound(information){
     }
     else{
         context.isDrawing = false;
-        console.log(context.username + " stopped drawing")
+        //console.log(context.username + " stopped drawing")
         let niz = ""
         for(let i = 0; i < word.length; i++) {
             niz += "_ "
@@ -130,8 +130,8 @@ function updateScores(scores){
     let myself = false;
     for (const [key, value] of Object.entries(context.users)) {
         for (const [keyScore, valueScore] of Object.entries(scores)) {
-            console.log(key + " " + keyScore + " " + valueScore)
-            console.log(scores)
+            //console.log(key + " " + keyScore + " " + valueScore)
+            //console.log(scores)
             if(key === keyScore)
             {
                 if (!myself) {
@@ -164,7 +164,7 @@ function updateTimer(data) {
         let niz = ""
         for(let i = 0; i < word.length; i++) {
             if (letters.includes(i)) {
-                niz += word[i] + " "
+                niz += word[i].toUpperCase() + " "
             } else {
                 niz += "_ "
             }

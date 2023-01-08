@@ -98,7 +98,7 @@ function resizeCanvas(e) {
     canvas.height = canvas.offsetHeight
     let scaleW = canvas.offsetWidth / prevWidth
     let scaleH = canvas.offsetHeight / prevHeight
-    console.log(scaleH)
+    //console.log(scaleH)
     prevHeight = canvas.offsetHeight
     prevWidth = canvas.offsetWidth
     ctx.lineWidth = brushWidth;

@@ -96,7 +96,7 @@ class Game {
         if(this.playersHaveDrawn >= this.users.length){
             this.playersHaveDrawn = 0
             this.roundCount ++ 
-            console.log("yeh")
+            //console.log("yeh")
         }
         if(this.roundCount > this.maxRounds){
             for (let idx in this.users) {

@@ -136,7 +136,7 @@ function iceCandidate(data) {
 }
 
 function removePeer(data) {
-    console.log("removing peer")
+    //console.log("removing peer")
     let message = JSON.parse(data.data);
     if (context.peers[message.peer.id]) {
         context.peers[message.peer.id].close();
