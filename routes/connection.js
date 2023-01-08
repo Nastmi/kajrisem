@@ -116,7 +116,7 @@ function disconnected(client, clients, app) {
         let room = rooms[roomId];
         if (room[client.id]) {
             for (let peerId in room) {
-                if(peerId != "game" && client.id !== peerId){
+                if(peerId !== "game" && client.id !== peerId){
                     clients[peerId].emit('remove-peer', { peer: client, roomId });
                 }
             }

@@ -124,7 +124,8 @@ class Game {
         this.playersHaveDrawn ++
         if (this.currentDrawing >= 0) {
             let prevUser = this.users[this.currentDrawing]
-            prevUser.isDrawing = false
+            if(typeof  prevUser.isDrawing !== 'undefined')
+                prevUser.isDrawing = false
         }
         this.currentDrawing++
         if (this.currentDrawing >= this.users.length)
