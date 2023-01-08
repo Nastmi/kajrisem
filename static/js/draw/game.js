@@ -4,7 +4,6 @@ window.addEventListener("load", e => {
     if(context.isHost)
     {
         // Show settings
-        document.querySelector("#game-pin").style.display = "none";
         document.querySelector(".private-room-container").style.display = "block"
         document.querySelector(".play-container").style.display = "none"
         document.querySelector(".invite-link").value = context.roomId
@@ -12,7 +11,6 @@ window.addEventListener("load", e => {
 })
 
 function startGame() {
-    document.querySelector("#game-pin").style.display = "block";
     if(Object.keys(context.users).length > 1)
     {
         if (context.isHost) {
