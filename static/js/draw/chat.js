@@ -1,3 +1,4 @@
+
 window.addEventListener("load", e => {
     const input = document.querySelector("#messageInput")
     const submit = document.querySelector("#sendMessage")
@@ -20,20 +21,18 @@ async function sendMessage() {
             },
             body: JSON.stringify({ word: inputValue, roomId: context.roomId, userId: context.userId })
         })
-
-        if ((await response.json()).correct) { // reciveServerMessage
+        let pack = (await response.json()).pack
+        if (!(pack["repeat"]) && pack["correct"]) { // reciveServerMessage
             window.sounds.correct.play();
-            document.querySelector("#messageInput").value = ""
             broadcast(JSON.stringify({
                 type: "serverChat",
                 message: context.username + " je uganil besedo"
             }));
             reciveServerMessage(context.username + " je uganil besedo")
         }
-        else{
+        else if(!(pack["correct"])){
             window.sounds.message.currentTime = 0;
             window.sounds.message.play();
-            document.querySelector("#messageInput").value = ""
             broadcast(JSON.stringify({
                 type: "chat",
                 user: context.username,
@@ -42,6 +41,7 @@ async function sendMessage() {
 
             reciveMessage(context.username, inputValue)
         }
+        document.querySelector("#messageInput").value = ""
     }
 }
 

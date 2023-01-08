@@ -86,6 +86,7 @@ function drawFromData(data) {
 }
 
 function clearCanvass(data) {
+    steps = []
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#F8F8F8";
     ctx.fillRect(0, 0, canvas.width, canvas.height);

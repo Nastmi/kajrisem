@@ -64,7 +64,6 @@ class Game {
             }
             for (let idx in this.users) {
                 let cuser = this.users[idx]
-                cuser.guessedCorrectly = false
                 cuser.emit("update-timer", {"timer": this.timer, "round": this.roundCount, "word":this.currentWord, "letters":this.letterIDs, "isDrawing":cuser.isDrawing})
             }
         }
@@ -96,6 +95,10 @@ class Game {
         if(this.playersHaveDrawn >= this.users.length){
             this.playersHaveDrawn = 0
             this.roundCount ++ 
+            for (let idx in this.users) { 
+                let cuser = this.users[idx]
+                cuser.guessedCorrectly = false
+            }
             //console.log("yeh")
         }
         if(this.roundCount > this.maxRounds){
@@ -145,10 +148,19 @@ class Game {
 
     checkCorrectWord(word, userId) {
         if (this.currentWord.localeCompare(word, undefined, { sensitivity: 'base' }) === 0){
-            this.updateScores(userId)
-            return true;
+            for (let idx in this.users) { 
+                if(this.users[idx]["id"] == userId){
+                    if(!(this.users[idx].guessedCorrectly) && !(this.users[idx].isDrawing)){
+                        this.updateScores(userId)
+                        return {correct:true, repeat:false};
+                    }
+                    else{
+                        return {correct:true, repeat:true}
+                    }
+                }
+            }
         }
-        return false;
+        return {correct:false, repeat:false};
     }
 
     updateScores(userId) {

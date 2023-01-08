@@ -40,10 +40,10 @@ router.post("/check-correct", (req, res) => {
     let room = rooms[req.body.roomId]
     let word = req.body.word
     let userId = req.body.userId
-    let correct = false
+    let pack = {}
     if (room["game"])
-        correct = room["game"].checkCorrectWord(word, userId)
-    res.json({ correct: correct })
+        pack = room["game"].checkCorrectWord(word, userId)
+    res.json({ pack:pack})
 })
 
 router.post("/restart-game", (req, res) => {
