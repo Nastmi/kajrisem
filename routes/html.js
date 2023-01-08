@@ -24,8 +24,13 @@ router.get('/room/:roomId', (req, res) => {
     let rooms = app.get("rooms")
     if(!rooms[roomNum])
         res.redirect(`/?fail=true`)
-    else
-        res.sendFile(path.join(__dirname, '../static/html/draw.html'));
+    else {
+        if (typeof rooms[roomNum]["game"] === 'undefined') {
+            res.sendFile(path.join(__dirname, '../static/html/draw.html'));
+        } else {
+            res.redirect(`/?fail=roomStart`)
+        }
+    }
 });
 
 module.exports = router;
