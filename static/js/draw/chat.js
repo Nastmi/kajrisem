@@ -22,6 +22,7 @@ async function sendMessage() {
         })
 
         if ((await response.json()).correct) { // reciveServerMessage
+            window.sounds.correct.play();
             document.querySelector("#messageInput").value = ""
             broadcast(JSON.stringify({
                 type: "serverChat",
@@ -30,8 +31,9 @@ async function sendMessage() {
             reciveServerMessage(context.username + " je uganil besedo")
         }
         else{
+            window.sounds.message.currentTime = 0;
+            window.sounds.message.play();
             document.querySelector("#messageInput").value = ""
-            window.wrongSound.play();
             broadcast(JSON.stringify({
                 type: "chat",
                 user: context.username,

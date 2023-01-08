@@ -57,7 +57,11 @@ async function connect() {
         data = JSON.parse(data["data"])
         gameEnd(data)
     });
-    window.wrongSound = new Audio("../sounds/wrong.opus");
+    window.sounds = {};
+    window.sounds.message = new Audio("../sounds/message.opus");
+    window.sounds.timer = new Audio("../sounds/timer.opus");
+    window.sounds.correct = new Audio("../sounds/correct.opus");
+    window.sounds.round = new Audio("../sounds/round.opus");
     debugger;
 }
 

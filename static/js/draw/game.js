@@ -88,6 +88,8 @@ function nextRound(information){
 
     let word = information["word"]
 
+    window.sounds.round.play();
+
     // Show canvas
     document.querySelector(".private-room-container").style.display = "none"
     document.querySelector(".play-container").style.display = "block"
@@ -149,8 +151,11 @@ function updateTimer(data) {
     round.innerHTML = "Krog: " + data["round"]
     context.round = data["round"]
     if (data["timer"] <= 10) {
+        window.sounds.timer.play();
         timer.style.color = "#ff0000"
     } else {
+        window.sounds.timer.pause();
+        window.sounds.timer.currentTime = 0;
         timer.style.color = "#000000"
     }
 }
