@@ -13,13 +13,27 @@ window.addEventListener("load", e => {
 })
 
 function startGame() {
-    if (context.isHost) {
-        fetch("/game/start-game", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
+    console.log(Object.keys(context.users))
+    if(Object.keys(context.users).length > 1)
+    {
+        if (context.isHost) {
+            fetch("/game/start-game", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ userId: context.userId, roomId: context.roomId })
+            })
+        }
+    }
+    else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Ni mogoče začeti igre ...',
+            text: 'V igri morata biti vsaj dva igralca, zaenkrat si tu le sam.',
+            background: "white",
+            allowOutsideClick: false,
+            backdrop: `rgba(0,0,0,0.7)`
         })
     }
 }
