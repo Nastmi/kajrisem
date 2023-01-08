@@ -5,6 +5,7 @@ window.addEventListener("load", e => {
     if(context.isHost)
     {
         // Show settings
+        document.querySelector("#game-pin").style.display = "none";
         document.querySelector(".private-room-container").style.display = "block"
         document.querySelector(".play-container").style.display = "none"
         document.querySelector(".invite-link").value = context.roomId
@@ -12,10 +13,10 @@ window.addEventListener("load", e => {
 })
 
 function startGame() {
+    document.querySelector("#game-pin").style.display = "block";
     if(Object.keys(context.users).length > 1)
     {
         if (context.isHost) {
-            let maxPlayers = document.querySelector("#slider_players").value
             let time = document.querySelector("#slider_time").value
             let rounds = document.querySelector("#slider_rounds").value
             let textarea = document.getElementById("textarea-words");
@@ -40,7 +41,7 @@ function startGame() {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, maxPlayers: maxPlayers, time: time, rounds:rounds, words: [], yoursWords: false })
+                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, time: time, rounds:rounds, words: [], yoursWords: false })
                     })
                 }
             }
@@ -59,7 +60,7 @@ function startGame() {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, maxPlayers: maxPlayers, time: time, rounds:rounds, words: words, yoursWords: yoursWords })
+                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, time: time, rounds:rounds, words: words, yoursWords: yoursWords })
                     })
                 } else {
                     Swal.fire({

@@ -12,9 +12,8 @@ class Game {
     roundCount
     maxRounds
     maxTime
-    maxPlayers
 
-    constructor(peerList, maxPlayers, time, rounds, words, yoursWords) {
+    constructor(peerList, time, rounds, words, yoursWords) {
         this.name = Math.floor(Math.random() * 10000) + 1;
         this.users = peerList
         if(yoursWords)
@@ -28,8 +27,6 @@ class Game {
 
         this.allWords = [...this.wordlist]
         this.maxTime = time
-        this.maxPlayers = maxPlayers
-
         this.timer = time
         this.timerSet = time;
         this.elapsedTime = 0
@@ -40,7 +37,6 @@ class Game {
         this.maxRounds = rounds
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
-        this.maxPlayers = maxPlayers
         this.nextRound()
     }
 
