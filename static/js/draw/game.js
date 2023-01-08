@@ -104,7 +104,12 @@ function nextRound(information){
     else{
         context.isDrawing = false;
         console.log(context.username + " stopped drawing")
-        document.getElementById("isDrawing").innerHTML = "Ugani besedo, dolžine " + word.length +" !"
+        let niz = ""
+        for(let i = 0; i < word.length; i++) {
+            niz += "_ "
+        }
+        niz.trim()
+        document.getElementById("isDrawing").innerHTML = "Ugani besedo: " + niz 
         document.querySelector("#options-div").style.display = 'none';
         document.querySelector("#colors-div").style.display = 'none';
         document.querySelector("#clear-canvas-div").style.display = 'none';
@@ -142,16 +147,33 @@ function updateScores(scores){
 }
 
 function updateTimer(data) {
-    //console.log(data["round"], data["timer"])
+    let word = data["word"]
+    let letters = data["letters"]
     let timer = document.querySelector("#timer")
     let round = document.querySelector("#round")
-    timer.innerHTML = "Čas: " + data["timer"]
+    timer.innerHTML = "Čas: " + data["timer"].toString().padStart(2, '0')
     round.innerHTML = "Krog: " + data["round"]
     context.round = data["round"]
     if (data["timer"] <= 10) {
         timer.style.color = "#ff0000"
     } else {
         timer.style.color = "#000000"
+    }
+
+    if(!data["isDrawing"]){
+        let niz = ""
+        for(let i = 0; i < word.length; i++) {
+            if (letters.includes(i)) {
+                niz += word[i] + " "
+            } else {
+                niz += "_ "
+            }
+        }
+        niz.trim()
+        document.getElementById("isDrawing").innerHTML = "Ugani besedo: " + niz 
+        document.querySelector("#options-div").style.display = 'none';
+        document.querySelector("#colors-div").style.display = 'none';
+        document.querySelector("#clear-canvas-div").style.display = 'none';
     }
 }
 
