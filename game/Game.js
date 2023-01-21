@@ -52,6 +52,7 @@ class Game {
         if (this.elapsedTime >= 1000) {
             this.timer -= 1
             this.elapsedTime = 0
+            //TODO poveži z nastavitavmi "prikazuj namige besede" -> če je da prikaži, če je ne pa ne
             if (this.timer <= this.newLetterTimer) {
                 this.newLetterTimer = this.newLetterTimer - this.letterDelayTimer
                 let incluesLetter = false
