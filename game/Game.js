@@ -150,7 +150,7 @@ class Game {
     checkCorrectWord(word, userId) {
         if (this.currentWord.localeCompare(word, undefined, { sensitivity: 'base' }) === 0){
             for (let idx in this.users) { 
-                if(this.users[idx]["id"] == userId){
+                if(this.users[idx]["id"] === userId){
                     if(!(this.users[idx].guessedCorrectly) && !(this.users[idx].isDrawing)){
                         this.updateScores(userId)
                         return {correct:true, repeat:false};

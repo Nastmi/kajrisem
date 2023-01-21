@@ -18,6 +18,7 @@ function startGame() {
             let rounds = document.querySelector("#slider_rounds").value
             let textarea = document.getElementById("textarea-words");
             let checkbox = document.getElementById("checkbox-words").checked;
+            let minWords = rounds * 2;
             if(textarea.value === "")
             {
                 if(checkbox)
@@ -45,7 +46,7 @@ function startGame() {
             else
             {
                 const words = textarea.value.split(",");
-                if (words.length > 1 && words.every(Boolean)) {
+                if (words.length >= minWords && words.every(Boolean)) {
                     let checkbox = document.getElementById("checkbox-words").checked;
                     let yoursWords = false;
                     if(checkbox)
@@ -63,7 +64,7 @@ function startGame() {
                     Swal.fire({
                         icon: 'error',
                         title: 'Napaka pri vnosu svojih besed. ...',
-                        text: 'Vnesi 0 ali več besed, ločene z vejico (,)',
+                        text: 'Izbrali ste: ' + rounds + ' število krogov, kar pomeni, da ob izboru le svojih besed potrebujete napisati vsaj ' + minWords + ' svojih besed.',
                         background: "white",
                         allowOutsideClick: false,
                         backdrop: `rgba(0,0,0,0.7)`
