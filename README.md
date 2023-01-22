@@ -1,3 +1,5 @@
+![KAJ RIŠEM?](static/img/kaj_risem.png)
+
 # Menu
 - [Slovenian](#aplikacija---kajrisem)
 - [English](#application---kajrisem)
