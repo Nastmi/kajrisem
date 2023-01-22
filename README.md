@@ -1,6 +1,6 @@
 # Aplikacija - kajrisem
  
-Aplikacije je slovenski klon aplikacije scribble.io
+Aplikacije je slovenski klon aplikacije skribbl.io
 
 ## O igri
 - Kaj rišem je brezplačna spletna večigralska igra risanja in ugibanja.
