@@ -46,11 +46,11 @@ function startGame() {
             else
             {
                 const words = textarea.value.split(",");
-                if (words.length >= minWords && words.every(Boolean)) {
+                if (words.length >= minWords && words.every(Boolean))
+                {
                     let checkbox = document.getElementById("checkbox-words").checked;
                     let yoursWords = false;
-                    if(checkbox)
-                    {
+                    if (checkbox) {
                         yoursWords = true;
                     }
                     fetch("/game/start-game", {
@@ -58,9 +58,29 @@ function startGame() {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, time: time, rounds:rounds, words: words, yoursWords: yoursWords })
+                        body: JSON.stringify({
+                            userId: context.userId,
+                            roomId: context.roomId,
+                            time: time,
+                            rounds: rounds,
+                            words: words,
+                            yoursWords: yoursWords
+                        })
                     })
-                } else {
+                }
+                else if (!words.every(Boolean))
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Napaka pri vnosu svojih besed ...',
+                        text: 'Vnesi svoje besede ločene z vejico (,). Vejica (,) se po zadnji besedi ne sme nahajati!!',
+                        background: "white",
+                        allowOutsideClick: false,
+                        backdrop: `rgba(0,0,0,0.7)`
+                    })
+                }
+                else
+                {
                     Swal.fire({
                         icon: 'error',
                         title: 'Napaka pri vnosu svojih besed. ...',
