@@ -13,7 +13,7 @@ class Game {
     maxRounds
     maxTime
 
-    constructor(peerList, time, rounds, words, yoursWords) {
+    constructor(peerList, time, rounds, words, yoursWords, hint) {
         this.name = Math.floor(Math.random() * 10000) + 1;
         this.users = peerList
         if(yoursWords)
@@ -37,6 +37,7 @@ class Game {
         this.maxRounds = rounds
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
+        this.hint = hint
         this.nextRound()
     }
 
@@ -53,15 +54,17 @@ class Game {
             this.timer -= 1
             this.elapsedTime = 0
             //TODO poveži z nastavitavmi "prikazuj namige besede" -> če je da prikaži, če je ne pa ne
-            if (this.timer <= this.newLetterTimer) {
-                this.newLetterTimer = this.newLetterTimer - this.letterDelayTimer
-                let incluesLetter = false
-                do {
-                    let newLetterIDX = Math.floor(Math.random()*this.currentWord.length)
-                    let incluesLetter = this.letterIDs.includes(newLetterIDX)
-                    if (!incluesLetter)
-                        this.letterIDs.push(newLetterIDX)
-                } while(incluesLetter)
+            if (this.hint) {
+                if (this.timer <= this.newLetterTimer) {
+                    this.newLetterTimer = this.newLetterTimer - this.letterDelayTimer
+                    let incluesLetter = false
+                    do {
+                        let newLetterIDX = Math.floor(Math.random()*this.currentWord.length)
+                        let incluesLetter = this.letterIDs.includes(newLetterIDX)
+                        if (!incluesLetter)
+                            this.letterIDs.push(newLetterIDX)
+                    } while(incluesLetter)
+                }
             }
             for (let idx in this.users) {
                 let cuser = this.users[idx]

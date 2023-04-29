@@ -19,6 +19,16 @@ function startGame() {
             let textarea = document.getElementById("textarea-words");
             let checkbox = document.getElementById("checkbox-words").checked;
             let minWords = rounds * 2;
+
+            let hintYes = document.querySelector('#namig-da').checked
+            let hintNo = document.querySelector('#namig-ne').checked
+            let hint = true
+            if (hintYes) {
+                hint = true
+            } else if (hintNo) {
+                hint = false
+            }
+
             if(textarea.value === "")
             {
                 if(checkbox)
@@ -39,7 +49,7 @@ function startGame() {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, time: time, rounds:rounds, words: [], yoursWords: false })
+                        body: JSON.stringify({ userId: context.userId, roomId: context.roomId, time: time, rounds:rounds, words: [], yoursWords: false, hint:hint })
                     })
                 }
             }
@@ -64,7 +74,8 @@ function startGame() {
                             time: time,
                             rounds: rounds,
                             words: words,
-                            yoursWords: yoursWords
+                            yoursWords: yoursWords,
+                            hint:hint 
                         })
                     })
                 }
