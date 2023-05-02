@@ -14,7 +14,7 @@ router.post("/start-game", (req, res) => {
             peers.push(clients[peerId])
         }
     }
-    room["game"] = new Game(peers, req.body.time, req.body.rounds, req.body.words, req.body.yoursWords);
+    room["game"] = new Game(peers, req.body.time, req.body.rounds, req.body.words, req.body.yoursWords, req.body.hint);
     if(app.get("gameLoop")){
         loop = app.get("gameLoop")
         loop.addNew(room, req.body.roomId)

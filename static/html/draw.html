@@ -57,11 +57,18 @@
                         <output name="result" for="slider">3</output>
                     </form>
                 </td>
+                <td>
+                    <label><b>Prikazuj namige besede</b></label><br/>
+                    <input type="radio" id="namig-da" name="namig" value=true checked="checked">
+                    <label for="namig-da">DA</label><br>
+                    <input type="radio" id="namig-ne" name="namig" value=false>
+                    <label for="namig-ne">NE</label>
+                </td>
             </tr>
             <tr>
                 <td colspan="3">
                     <b>Moje besede</b><br>
-                    <textarea id="textarea-words" rows="5" placeholder="Vnesi 0 ali več besed, ločene z vejico (,)"></textarea><br>
+                    <textarea id="textarea-words" rows="5" placeholder="Vnesi svoje besede ločene z vejico (,)"></textarea><br>
                     <label class="custom-words-label"><input type="checkbox" id="checkbox-words"/> Uporabi le vnesene besede</label>
                 </td>
             </tr>

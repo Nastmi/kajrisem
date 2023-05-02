@@ -15,7 +15,8 @@ class Game {
     // Za počakat med krogi
     isWaiting
 
-    constructor(peerList, time, rounds, words, yoursWords) {
+
+    constructor(peerList, time, rounds, words, yoursWords, hint) {
         this.isWaiting = true
         this.name = Math.floor(Math.random() * 10000) + 1;
         this.users = peerList
@@ -40,6 +41,7 @@ class Game {
         this.maxRounds = rounds
         this.gameLoopOver = false
         this.playersHaveDrawn = 0
+        this.hint = hint
         this.nextRound()
     }
 
@@ -55,7 +57,7 @@ class Game {
         if (this.elapsedTime >= 1000) {
             this.timer -= 1
             this.elapsedTime = 0
-            if(!this.isWaiting){
+            if (this.hint & !this.isWaiting) {
                 if (this.timer <= this.newLetterTimer) {
                     this.newLetterTimer = this.newLetterTimer - this.letterDelayTimer
                     let incluesLetter = false
@@ -169,7 +171,7 @@ class Game {
     checkCorrectWord(word, userId) {
         if (this.currentWord.localeCompare(word, undefined, { sensitivity: 'base' }) === 0){
             for (let idx in this.users) { 
-                if(this.users[idx]["id"] == userId){
+                if(this.users[idx]["id"] === userId){
                     if(!(this.users[idx].guessedCorrectly) && !(this.users[idx].isDrawing)){
                         this.updateScores(userId)
                         return {correct:true, repeat:false};

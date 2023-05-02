@@ -127,8 +127,12 @@ function disconnected(client, clients, app) {
                 //console.log("new host");
                 let keys = Object.keys(room)
                 let newHost = keys[0]
-                clients[newHost].isHost = true;
-                clients[newHost].emit("set-host")
+                if (typeof clients[newHost] === undefined)
+                {
+                    clients[newHost].isHost = true;
+                    clients[newHost].emit("set-host")
+                }
+
             }
         }
         if (Object.keys(room).length === 1) {
