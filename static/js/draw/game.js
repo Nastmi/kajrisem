@@ -85,7 +85,6 @@ function startGame() {
 }
 
 function nextRound(information){
-
     let word = information["word"]
 
     window.sounds.round.play();
@@ -149,14 +148,13 @@ function updateScores(scores){
 }
 
 function updateTimer(data) {
-    let word = data["word"]
-    let letters = data["letters"]
+    let isWaiting = data["delay"]
     let timer = document.querySelector("#timer")
     let round = document.querySelector("#round")
     timer.innerHTML = "Čas: " + data["timer"].toString().padStart(2, '0')
     round.innerHTML = "Krog: " + data["round"]
     context.round = data["round"]
-    if (data["timer"] <= 10) {
+    if (data["timer"] <= 10 & !isWaiting) {
         window.sounds.timer.play();
         timer.style.color = "#ff0000"
     } else {
@@ -165,7 +163,15 @@ function updateTimer(data) {
         timer.style.color = "#000000"
     }
 
-    if(!data["isDrawing"]){
+    if(isWaiting){
+        document.querySelector(".private-room-container").style.display = "none"
+        document.querySelector(".play-container").style.display = "block"
+        document.getElementById("isDrawing").innerHTML = "Pripravi se!"
+    }
+
+    if(!data["isDrawing"] & !isWaiting){
+        let word = data["word"]
+        let letters = data["letters"]
         let niz = ""
         for(let i = 0; i < word.length; i++) {
             if (letters.includes(i)) {
