@@ -56,6 +56,10 @@ function startGame() {
             else
             {
                 const words = textarea.value.split(",");
+                // go through all words and trim them
+                for (let i = 0; i < words.length; i++) {
+                    words[i] = words[i].trim();
+                }
                 let checkbox = document.getElementById("checkbox-words").checked;
                 if ((words.length >= minWords || !checkbox) && words.every(Boolean))
                 {
