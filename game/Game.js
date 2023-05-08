@@ -12,8 +12,12 @@ class Game {
     roundCount
     maxRounds
     maxTime
+    // Za počakat med krogi
+    isWaiting
+
 
     constructor(peerList, time, rounds, words, yoursWords, hint) {
+        this.isWaiting = true
         this.name = Math.floor(Math.random() * 10000) + 1;
         this.users = peerList
         if(yoursWords)
@@ -27,7 +31,7 @@ class Game {
 
         this.allWords = [...this.wordlist]
         this.maxTime = time
-        this.timer = time
+        this.timer = 5;
         this.timerSet = time;
         this.elapsedTime = 0
         this.previousTime = Date.now()
@@ -53,7 +57,7 @@ class Game {
         if (this.elapsedTime >= 1000) {
             this.timer -= 1
             this.elapsedTime = 0
-            if (this.hint) {
+            if (this.hint & !this.isWaiting) {
                 if (this.timer <= this.newLetterTimer) {
                     this.newLetterTimer = this.newLetterTimer - this.letterDelayTimer
                     let incluesLetter = false
@@ -67,17 +71,30 @@ class Game {
             }
             for (let idx in this.users) {
                 let cuser = this.users[idx]
-                cuser.emit("update-timer", {"timer": this.timer, "round": this.roundCount, "word":this.currentWord, "letters":this.letterIDs, "isDrawing":cuser.isDrawing})
+                cuser.emit("update-timer", {"timer": this.timer, "round": this.roundCount, "word":this.currentWord, "letters":this.letterIDs, "isDrawing":cuser.isDrawing, delay:this.isWaiting})
             }
         }
-        if (this.timer <= 0) {
-            if (this.roundCount < this.maxRounds){
+        if(this.timer <= 0 & this.isWaiting){
+            console.log("here")
+            this.isWaiting  = false
+            if (this.roundCount < this.maxRounds + 1){
                 this.gameLoopOver = false
             } else {
                 this.gameLoopOver = true
             }
             this.timer = this.timerSet
-            this.nextRound()
+            if(!this.gameLoopOver)
+                this.nextRound()
+        }
+        if (this.timer <= 0 & !this.isWaiting) {
+            if(this.roundCount < this.maxRounds){
+                this.isWaiting = true
+                this.timer = 5
+            }
+            else{
+                this.gameLoopOver = true
+                this.nextRound()
+            }
         }
     }
 
@@ -102,7 +119,6 @@ class Game {
                 let cuser = this.users[idx]
                 cuser.guessedCorrectly = false
             }
-            //console.log("yeh")
         }
         if(this.roundCount > this.maxRounds){
             for (let idx in this.users) {
@@ -124,30 +140,32 @@ class Game {
             }
             return
         }
-        this.playersHaveDrawn ++
-        if (this.currentDrawing >= 0) {
-            let prevUser = this.users[this.currentDrawing]
-            if(typeof  prevUser.isDrawing !== 'undefined')
-                prevUser.isDrawing = false
+        if(!this.isWaiting){
+            this.playersHaveDrawn ++
+            if (this.currentDrawing >= 0) {
+                let prevUser = this.users[this.currentDrawing]
+                if(typeof  prevUser.isDrawing !== 'undefined')
+                    prevUser.isDrawing = false
+            }
+            this.currentDrawing++
+            if (this.currentDrawing >= this.users.length)
+                this.currentDrawing = 0
+            let newWordIndex = Math.floor(Math.random() * this.wordlist.length)
+            this.currentWord = this.wordlist[newWordIndex];
+            this.wordlist.splice(newWordIndex, 1)
+            let user = this.users[this.currentDrawing]
+            user.isDrawing = true
+            let wordlLength = this.currentWord.length - 2
+            this.letterDelayTimer = this.maxTime / (wordlLength + 2)
+            this.newLetterTimer = this.maxTime - this.letterDelayTimer
+            this.letterIDs = []
+            for (let idx in this.users) { 
+                let cuser = this.users[idx]
+                cuser.guessedCorrectly = false
+                cuser.emit("new-round", {"isDrawing":cuser.isDrawing, "word":this.currentWord})
+            }
+            this.correctCount = 0
         }
-        this.currentDrawing++
-        if (this.currentDrawing >= this.users.length)
-            this.currentDrawing = 0
-        let newWordIndex = Math.floor(Math.random() * this.wordlist.length)
-        this.currentWord = this.wordlist[newWordIndex];
-        this.wordlist.splice(newWordIndex, 1)
-        let user = this.users[this.currentDrawing]
-        user.isDrawing = true
-        let wordlLength = this.currentWord.length - 2
-        this.letterDelayTimer = this.maxTime / (wordlLength + 2)
-        this.newLetterTimer = this.maxTime - this.letterDelayTimer
-        this.letterIDs = []
-        for (let idx in this.users) { 
-            let cuser = this.users[idx]
-            cuser.guessedCorrectly = false
-            cuser.emit("new-round", {"isDrawing":cuser.isDrawing, "word":this.currentWord})
-        }
-        this.correctCount = 0
     }
 
     checkCorrectWord(word, userId) {
@@ -192,13 +210,14 @@ class Game {
             user.emit("update-scores", {scores:scores})
         }
         if (this.correctCount === this.users.length - 1) {
-            if (this.roundCount < this.maxRounds){
-                this.gameLoopOver = false
-            } else {
-                this.gameLoopOver = true
+            if(this.roundCount < this.maxRounds || this.playersHaveDrawn < this.users.length){
+                this.isWaiting = true
+                this.timer = 5
             }
-            this.timer = this.timerSet
-            this.nextRound()
+            else{
+                this.gameLoopOver = true
+                this.nextRound()
+            }
         }
     }
 
