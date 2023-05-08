@@ -56,9 +56,9 @@ function startGame() {
             else
             {
                 const words = textarea.value.split(",");
-                if (words.length >= minWords && words.every(Boolean))
+                let checkbox = document.getElementById("checkbox-words").checked;
+                if ((words.length >= minWords || !checkbox) && words.every(Boolean))
                 {
-                    let checkbox = document.getElementById("checkbox-words").checked;
                     let yoursWords = false;
                     if (checkbox) {
                         yoursWords = true;
